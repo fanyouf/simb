@@ -1,0 +1,2 @@
+# simb
+simple static blog
