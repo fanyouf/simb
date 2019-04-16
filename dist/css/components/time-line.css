@@ -1,0 +1,23 @@
+.m-timeline {
+  padding: 1em;
+}
+.m-timeline dt,
+.m-timeline dl,
+.m-timeline dd {
+  margin: 0;
+  padding: 0;
+}
+.m-timeline dt {
+  margin: 1.5em 0;
+  font-size: 1.2rem;
+}
+.m-timeline dd {
+  line-height: 1.8;
+  word-wrap: break-word;
+}
+.m-timeline dd a {
+  color: #2479cc;
+}
+.m-timeline dd span {
+  font-size: 0.8rem;
+}

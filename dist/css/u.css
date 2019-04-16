@@ -1,0 +1,33 @@
+.u-icon_category {
+  padding-left: 1em;
+  position: relative;
+}
+.u-icon_category::before {
+  content: "";
+  position: absolute;
+  width: 0;
+  height: 0;
+  border: 0.4em solid;
+  border-bottom-color: transparent;
+  box-shadow: 0 -0.2em;
+  border-radius: 0.2em;
+  left: 0;
+  top: 0.5em;
+}
+.u-icon_tag {
+  padding-left: 1em;
+  position: relative;
+}
+.u-icon_tag::before {
+  content: "";
+  position: absolute;
+  width: 0;
+  height: 0;
+  border: 0.4em solid;
+  border-bottom-color: transparent;
+  box-shadow: 0 -0.2em;
+  border-radius: 0.2em;
+  left: 0;
+  top: 0.5em;
+  transform: rotateZ(45deg);
+}

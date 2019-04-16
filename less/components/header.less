@@ -1,0 +1,43 @@
+@import (reference) "../var.less";
+.m-header {
+  width: 100%;
+  background-color: @c-bgc-mod2;
+
+  line-height: 4rem;
+  .m-logo {
+    line-height: 4rem;
+  }
+  .clear;
+
+  .link {
+    color: @c-bgc-body;
+    margin-right: 2rem;
+  }
+  .link:hover {
+    color: @c-decorate-1;
+  }
+  .current {
+    color: @c-decorate-1;
+  }
+
+  .container {
+    max-width: @basic-width;
+    margin: 0 auto;
+    .clear;
+  }
+  .m-logo {
+    float: left;
+  }
+  .m-nav {
+    float: right;
+  }
+  a {
+    color: @c-bgc-mod1;
+  }
+}
+
+@media only screen and (max-width: @width-phone) {
+  .m-header {
+    position: sticky;
+  }
+}

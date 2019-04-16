@@ -1,0 +1,364 @@
+<!DOCTYPE html>  <html lang="en">    <head>      <meta charset="UTF-8" />      <meta name="viewport" content="width=device-width, initial-scale=1.0" />      <meta http-equiv="X-UA-Compatible" content="ie=edge" />      <meta name="author" content="凡友福" />      <meta name="keywords" content="" />      <title>搭建一个可以上浏览器中运行ts的环境|凡友福的个人博客</title>      <link rel="stylesheet" href="../css/swal.css" />        <meta name="description" content="" />    </head>    <body>      <nav>        <h1 class="logo"><a href="./index">网站</a></h1>        <a href="../index.html">首页</a>        <a href="../archives.html">归档</a>        <a href="../category.html">分类</a>        <a href="../tags/index.html">标签</a>        <a href="../about.html">关于</a>      </nav>      <h1>        搭建一个可以上浏览器中运行ts的环境      </h1>      <div class="meta">        <span class="category">javascript</span>        <div class="tag">typescript,gulp</div>        <span class="dateTime">2019-04-16</span>      </div>      <article class="m-markdown">        <h1>搭建一个在浏览器使用typescript的环境</h1>
+<p><a href="github.com/fanyoufu/learnty.git">github地址</a></p>
+<p>目录
+[[toc]]</p>
+<h2>建立目录结构</h2>
+<pre><code>package.json
+src/
+dist/
+</code></pre>
+<p>建议使用npm init 初始化 package.json文件</p>
+<h2>安装gulp 和 typescript</h2>
+<ol>
+<li>全局安装gulp</li>
+</ol>
+<pre><code>npm install -g gulp-cli
+</code></pre>
+<ol start="2">
+<li>安装typescript，gulp和gulp-typescript到开发依赖项。</li>
+</ol>
+<pre><code>npm install --save-dev typescript gulp gulp-typescript
+</code></pre>
+<ul>
+<li>typscript 是typescript的编译器</li>
+<li>gulp-typescript 是与gulp配合使用的gulp插件</li>
+</ul>
+<h2>编写ts文件</h2>
+<blockquote>
+<p>目录/src/main.ts</p>
+</blockquote>
+<pre><code>function hello(compiler: string) {
+    console.log(`Hello from ${compiler}`);
+}
+hello(&quot;TypeScript&quot;);
+</code></pre>
+<h2>配置tsconfig文件</h2>
+<p>在项目根目录下建立tsconfig.json文件。</p>
+<blockquote>
+<p>目录/tsconfig.json</p>
+</blockquote>
+<pre><code>{
+    &quot;files&quot;: [
+        &quot;src/main.ts&quot;
+    ],
+    &quot;compilerOptions&quot;: {
+        &quot;noImplicitAny&quot;: true,
+        &quot;target&quot;: &quot;es5&quot;
+    }
+}
+</code></pre>
+<h2>配置gulpfile.js文件</h2>
+<p>在项目目录下建立gulpfile.js文件，来配置gulp命令</p>
+<blockquote>
+<p>目录/gulpfile.js文件</p>
+</blockquote>
+<pre><code>var gulp = require(&quot;gulp&quot;);
+var ts = require(&quot;gulp-typescript&quot;);
+var tsProject = ts.createProject(&quot;tsconfig.json&quot;);
+
+gulp.task(&quot;default&quot;, function () {
+    return tsProject.src()
+        .pipe(tsProject())
+        .js.pipe(gulp.dest(&quot;dist&quot;));
+});
+</code></pre>
+<h2>运行gulp命令，查看效果</h2>
+<pre><code>gulp
+node dist/main.js
+</code></pre>
+<ul>
+<li>gulp 命令通过gulpfile.js的配置，把src/main.ts编译成dist/main.js文件。
+此时在dist下会生成一个main.js文件，其文件的内容是：</li>
+</ul>
+<pre><code>function hello(compiler) {
+    console.log(&quot;hello from &quot; + compiler);
+}
+hello(&quot;TypeScript&quot;);
+</code></pre>
+<p>你可以回过去对比看看 main.ts的内容和现在的main.js的内容对比。</p>
+<ul>
+<li>node dist/main.js 命令是在node环境中执行main.js</li>
+</ul>
+<p>以上是在node中执行javascript，那如何把javascript放在浏览器中执行呢？
+其实你可以直接把这个main.js引入到你的html页面中。</p>
+<h2>使用多个ts文件</h2>
+<p>现实中的项目目录肯定会有很多个模块，表现在多离散的文件中。下面来尝试一下：</p>
+<p>共三步.</p>
+<h3>1/3 新建一个src/greet.ts文件：</h3>
+<pre><code>export function sayHello(name: string) {
+    return `Hello from ${name}`;
+}
+</code></pre>
+<h3>2/3 更改src/main.ts代码，从greet.ts导入sayHello：</h3>
+<pre><code>import { sayHello } from &quot;./greet&quot;;
+
+console.log(sayHello(&quot;TypeScript&quot;));
+</code></pre>
+<h3>3/3 最后，将src/greet.ts添加到tsconfig.json：</h3>
+<pre><code>{
+    &quot;files&quot;: [
+        &quot;src/main.ts&quot;,
+        &quot;src/greet.ts&quot;
+    ],
+    &quot;compilerOptions&quot;: {
+        &quot;noImplicitAny&quot;: true,
+        &quot;target&quot;: &quot;es5&quot;
+    }
+}
+</code></pre>
+<p>注意：files的值是一个数组，数组中最后一个元素不要加“,”。如果你加了，有可能会在接下来的任务中出错。</p>
+<p>确保执行gulp后模块是能工作的，在Node.js下进行测试：</p>
+<pre><code>gulp
+node dist/main.js
+</code></pre>
+<p>你会得到如下：
+dist/main.js</p>
+<pre><code>&quot;use strict&quot;;
+Object.defineProperty(exports, &quot;__esModule&quot;, { value: true });
+var greet_1 = require(&quot;./greet&quot;);
+console.log(greet_1.sayHello(&quot;Typescript&quot;));
+
+</code></pre>
+<p>dist/greet.js</p>
+<pre><code>&quot;use strict&quot;;
+Object.defineProperty(exports, &quot;__esModule&quot;, { value: true });
+function sayHello(name) {
+    return &quot;Hello from &quot; + name;
+}
+exports.sayHello = sayHello;
+</code></pre>
+<p>注意，此时，你如果直接在.html文件中引用dist/main.js文件是会出错误的。原因是：浏览器中不认识require命令。 而在node环境是可以执行node main.js的，因为node支持commonJS的模块化。</p>
+<p>我们来证明这一点。</p>
+<h2>在浏览器环境中使用main.js</h2>
+<h3>创建src/index.html文件</h3>
+<pre><code>&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;
+    &lt;meta http-equiv=&quot;X-UA-Compatible&quot; content=&quot;ie=edge&quot;&gt;
+    &lt;title&gt;Document&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;p id=&quot;greeting&quot;&gt;loading....&lt;/p&gt;
+    &lt;script src=&quot;main.js&quot;&gt;&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+<h3>把index.htm从src目标拷贝到dist目录</h3>
+<p>为什么不直接在dist目录下创建这个index.html文件，而非要在src目录下创建好了再复制过去呢？ 因为src是源目录，dist是生产目录，我们只能把代码写在源目录中。</p>
+<p>这个拷贝的过程是通过建立gulp任务来完成的</p>
+<pre><code>let gulp = require(&quot;gulp&quot;)
+
+let ts = require(&quot;gulp-typescript&quot;)
+let tsProject = ts.createProject(&quot;tsconfig.json&quot;);
+
+let paths = {
+    pages:[&quot;src/*.html&quot;]
+}
+gulp.task(&quot;copy-html&quot;,function(){
+    return gulp.src(paths.pages).pipe(gulp.dest(&quot;dist&quot;))
+});
+
+gulp.task(&quot;default&quot;,gulp.series(&quot;copy-html&quot;,function(){
+    return tsProject.src().pipe(tsProject()).js.pipe(gulp.dest(&quot;dist&quot;))
+}))
+</code></pre>
+<p>这里增加了copy-html任务并且把它加作default的依赖项。 这样，当default执行时，copy-html会被首先执行。</p>
+<p>注意：default是默认任务，而第二个参数gulp.series()这种写法是gulp4.0的写法。gulp3.0的写法有个一点小区别。请大家根据自己gulp的版本来决定。</p>
+<p>改造完gulpfile.js后，再次运行</p>
+<pre><code>gulp
+</code></pre>
+<p>可以看这个两个任务的结果:</p>
+<ol>
+<li>index.html拷贝到了dist目录</li>
+<li>main.ts,greet.ts被编译成了对应的.js文件。</li>
+</ol>
+<h3>浏览器中的export错误</h3>
+<p>此时，我们通过浏览器打开index.html文件，你会在浏览器中看到错误信息：</p>
+<pre><code>main.js:2 Uncaught ReferenceError: exports is not defined
+    at main.js:2
+</code></pre>
+<p>那么，如何解决呢？</p>
+<h2>工程由Node.js环境移到浏览器环境里</h2>
+<p>现在，让我们把这个工程由Node.js环境移到浏览器环境里。 通过Browserify把所有模块捆绑成一个JavaScript文件。</p>
+<h3>安装依赖</h3>
+<pre><code>npm install --save-dev browserify tsify vinyl-source-stream
+</code></pre>
+<p>首先，安装Browserify，tsify和vinyl-source-stream。 tsify是Browserify的一个插件，就像gulp-typescript一样，它能够访问TypeScript编译器。 vinyl-source-stream会将Browserify的输出文件适配成gulp能够解析的格式，它叫做vinyl。</p>
+<h3>修改gulpfile.js配置</h3>
+<p>几个要点：</p>
+<ol>
+<li>使用browserify处理typescript文件的插件tsify来代替 gulp-typescript</li>
+<li>配置browserify()打包.js文件到bundle.js</li>
+</ol>
+<pre><code>let gulp = require(&quot;gulp&quot;)
+
+let browserify =require(&quot;browserify&quot;)
+let source = require(&quot;vinyl-source-stream&quot;)
+let tsify = require(&quot;tsify&quot;);
+
+// let ts = require(&quot;gulp-typescript&quot;)
+// let tsProject = ts.createProject(&quot;tsconfig.json&quot;);
+
+let paths = {
+    pages:[&quot;src/*.html&quot;]
+}
+gulp.task(&quot;copy-html&quot;,function(){
+    return gulp.src(paths.pages).pipe(gulp.dest(&quot;dist&quot;))
+});
+
+gulp.task(&quot;default&quot;,gulp.series(&quot;copy-html&quot;,function(){
+    // return tsProject.src().pipe(tsProject()).js.pipe(gulp.dest(&quot;dist&quot;))
+    return browserify({
+        basedir:&quot;&quot;,
+        debug:true,
+        entries:[&quot;src/main.ts&quot;],
+        cache:{},
+        packageCache:{}
+    }).plugin(tsify)
+    .bundle()
+    .pipe(source('bundle.js'))
+    .pipe(gulp.dest(&quot;dist&quot;));
+}))
+</code></pre>
+<p>修改了default任务，让它使用tsify插件调用Browserify，而不是gulp-typescript。 方便的是，两者传递相同的参数对象到TypeScript编译器。</p>
+<p>调用bundle后，我们使用source（vinyl-source-stream的别名）把输出文件命名为bundle.js。</p>
+<p>注意，我们为Broswerify指定了debug: true。 这会让tsify在输出文件里生成source maps。 source maps允许我们在浏览器中直接调试TypeScript源码，而不是在合并后的JavaScript文件上调试。 你要打开调试器并在main.ts里打一个断点，看看source maps是否能工作。 当你刷新页面时，代码会停在断点处，从而你就能够调试greet.ts。</p>
+<ol start="3">
+<li>修改src/index.html中的的js文件引用</li>
+</ol>
+<p>此时，应该引用 ./boundle.js</p>
+<ol start="4">
+<li>运行命令 gulp</li>
+</ol>
+<pre><code>gulp
+</code></pre>
+<ol start="5">
+<li>观察./dist/bundle.js</li>
+</ol>
+<p>bundle.js</p>
+<pre><code>(function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c=&quot;function&quot;==typeof require&amp;&amp;require;if(!f&amp;&amp;c)return c(i,!0);if(u)return u(i,!0);var a=new Error(&quot;Cannot find module '&quot;+i+&quot;'&quot;);throw a.code=&quot;MODULE_NOT_FOUND&quot;,a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u=&quot;function&quot;==typeof require&amp;&amp;require,i=0;i&lt;t.length;i++)o(t[i]);return o}return r})()({1:[function(require,module,exports){
+&quot;use strict&quot;;
+Object.defineProperty(exports, &quot;__esModule&quot;, { value: true });
+function sayHello(name) {
+    return &quot;Hello from &quot; + name;
+}
+exports.sayHello = sayHello;
+},{}],2:[function(require,module,exports){
+&quot;use strict&quot;;
+Object.defineProperty(exports, &quot;__esModule&quot;, { value: true });
+var greet_1 = require(&quot;./greet&quot;);
+console.log(greet_1.sayHello(&quot;Typescript&quot;));
+},{&quot;./greet&quot;:1}]},{},[2])
+
+</code></pre>
+<ol start="6">
+<li>打开dist/index.html文件
+你应该可以在控制台中看到正确的输出了。</li>
+</ol>
+<h3>自动构建</h3>
+<p>在编辑保存.ts时，能立即看到效果。</p>
+<h4>安装watchify包</h4>
+<pre><code>npm install --save-dev watchify gulp-util
+</code></pre>
+<p>Watchify启动Gulp并保持运行状态，当你保存文件时自动编译。 帮你进入到编辑-保存-刷新浏览器的循环中。</p>
+<h4>修改gulpfile.js配置</h4>
+<p>共有三处改变，但是需要你略微重构一下代码。</p>
+<p>(1) 将browserify实例包裹在watchify的调用里，控制生成的结果。
+(2) 调用watchedBrowserify.on(&quot;update&quot;, bundle);，每次TypeScript文件改变时Browserify会执行bundle函数。
+(3) 调用watchedBrowserify.on(&quot;log&quot;, gutil.log);将日志打印到控制台。</p>
+<p>(1)和(2)在一起意味着我们要将browserify调用移出default任务。 然后给函数起个名字，因为Watchify和Gulp都要调用它。 (3)是可选的，但是对于调试来讲很有用。</p>
+<pre><code>let gulp = require(&quot;gulp&quot;)
+
+let browserify =require(&quot;browserify&quot;)
+let source = require(&quot;vinyl-source-stream&quot;)
+let tsify = require(&quot;tsify&quot;);
+let watchify = require(&quot;watchify&quot;)
+let gutil = require(&quot;gulp-util&quot;)
+
+var wathchedBrowerify = watchify(browserify({
+    basedir:&quot;&quot;,
+    debug:true,
+    entries:[&quot;src/main.ts&quot;],
+    cache:{},
+    packageCache:{}
+})).plugin(tsify)
+
+let paths = {
+    pages:[&quot;src/*.html&quot;]
+}
+gulp.task(&quot;copy-html&quot;,function(){
+    return gulp.src(paths.pages).pipe(gulp.dest(&quot;dist&quot;))
+});
+function bundle(){
+    return wathchedBrowerify.bundle().pipe(source('bundle.js'))
+    .pipe(gulp.dest(&quot;dist&quot;));
+}
+gulp.task(&quot;default&quot;,gulp.series(&quot;copy-html&quot;,bundle));
+
+wathchedBrowerify.on(&quot;update&quot;,bundle);
+wathchedBrowerify.on(&quot;log&quot;,gutil.log)
+</code></pre>
+<h3>浏览器自动刷新</h3>
+<h4>安装 live-server</h4>
+<p>live-server与我们上面介绍的typescript，gulp都没有关系。 你只需要全局安装live-server。然后进入dist目录，运行live-server即可看到效果。</p>
+<p>它的<a href="https://www.npmjs.com/package/live-server">npm地址</a></p>
+<pre><code>npm install -g live-server
+cd dist
+live-server
+</code></pre>
+<h2>在gulp中使用less</h2>
+<h3>准备好目录</h3>
+<p>dist/css</p>
+<p>src/less</p>
+<h3>安装gulp-less包</h3>
+<pre><code>npm install gulp-less --dev
+</code></pre>
+<h3>修改gulpfile配置</h3>
+<pre><code>let gulp = require(&quot;gulp&quot;)
+
+let browserify =require(&quot;browserify&quot;)
+let source = require(&quot;vinyl-source-stream&quot;)
+let tsify = require(&quot;tsify&quot;);
+let watchify = require(&quot;watchify&quot;)
+let gutil = require(&quot;gulp-util&quot;)
+
+const less = require('gulp-less')
+
+var wathchedBrowerify = watchify(browserify({
+    basedir:&quot;&quot;,
+    debug:true,
+    entries:[&quot;src/main.ts&quot;],
+    cache:{},
+    packageCache:{}
+})).plugin(tsify)
+
+let paths = {
+    pages:[&quot;src/*.html&quot;]
+}
+
+gulp.task('less', function () {
+    return gulp.src('src/less/**/*.less')
+      .pipe(less())
+      .pipe(gulp.dest('dist/css'));
+  });
+
+gulp.task(&quot;copy-html&quot;,function(){
+    return gulp.src(paths.pages).pipe(gulp.dest(&quot;dist&quot;))
+});
+function bundle(){
+    return wathchedBrowerify.bundle().pipe(source('bundle.js'))
+    .pipe(gulp.dest(&quot;dist&quot;));
+}
+gulp.task(&quot;default&quot;,gulp.series(&quot;copy-html&quot;,&quot;less&quot;,bundle));
+
+gulp.watch(['src/less/*.less','src/index.html'], gulp.series('less','copy-html'));
+
+wathchedBrowerify.on(&quot;update&quot;,bundle);
+wathchedBrowerify.on(&quot;log&quot;,gutil.log)
+
+</code></pre>
+<h2>end</h2>
+<p>至此，我们搭建一个可以写ts代码，并在浏览器环境中运行的开发环境。</p>
+      </article>    </body>  </html>  

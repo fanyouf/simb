@@ -1,0 +1,10 @@
+.m-badge {
+  display: inline;
+  padding: 0.2rem;
+  border-radius: 0.8rem;
+  margin-left: 0.2rem;
+  background-color: #f78585;
+}
+.m-list-item:hover .m-badge {
+  background-color: #d9534f;
+}

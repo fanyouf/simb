@@ -4,7 +4,6 @@ const path = require("path");
 const util = require("./util/fileInfo");
 var markdown = require("markdown-js");
 // const mdPath = path.parse("../md");
-console.info(util);
 const dir = fs.readdirSync("../md");
 const cateList = {};
 const lastPost = [];
@@ -14,10 +13,9 @@ dir.forEach(path => {
   let files = fs.readdirSync("../md/" + path);
   files.forEach(file => {
     let f = {};
-    f.content = markdown.makeHtml(
-      fs.readFileSync("../md/" + path + "/" + file).toString()
-    );
-    f.substr = f.content.substr(0, 100).replace(/#/g, "");
+    let mdstr = fs.readFileSync("../md/" + path + "/" + file).toString();
+    f.content = markdown.makeHtml(mdstr);
+    f.substr = mdstr.substr(0, 100).replace(/#/g, "");
     file = file.replace(".md", "");
 
     f.dateTime = file.substr(0, 10);
@@ -36,10 +34,19 @@ dir.forEach(path => {
       title: f.title,
       linkName: f.linkName,
       fileName: f.fileName,
+      dateTime: f.dateTime,
       substr: f.substr,
-      tags: f.tags.join(",")
+      tags: f.tags,
+      category: path
     });
   });
 });
+util.buildIndex(lastPost, Object.keys(cateList));
 
-util.buildIndex(lastPost);
+let cateList1 = Object.keys(cateList).map(key => {
+  return {
+    cateName: key,
+    list: cateList[key]
+  };
+});
+util.buildCate(cateList1);
