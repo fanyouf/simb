@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>Document</title>
-    <link rel="stylesheet" href="./css/swal.css" />
+    <link rel="stylesheet" href="./css/index.css" />
   </head>
   <body>
     <header class="m-header">
@@ -24,10 +24,14 @@
     <section class="container">
       <% for(var index in this) {%>
       <div class="m-list s-single-line">
-        <h2 class="m-list-title"><%this[index].cateName%>[<%this[index].list.length%>]</h2>
+        <h2 class="m-list-title">
+          <%this[index].cateName%>[<%this[index].list.length%>]
+        </h2>
         <% for(var idx in this[index].list) {%>
         <div class="m-list-item">
-          <a class="m-item-title" href="<%this[index].list[idx].linkName%>"><%this[index].list[idx].title%></a>
+          <a class="m-item-title" href="<%this[index].list[idx].linkName%>"
+            ><%this[index].list[idx].title%></a
+          >
 
           <time class="u-datetime" datetime="<%this[index].list[idx].dateTime%>"
             ><%this[index].list[idx].dateTime%></time

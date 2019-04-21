@@ -7,29 +7,71 @@
     <meta name="author" content="凡友福" />
     <meta name="keywords" content="<%this.keywords%>" />
     <title><%this.title%>|凡友福的个人博客</title>
-    <link rel="stylesheet" href="../css/swal.css" />
+    <link rel="stylesheet" href="../css/index.css" />
 
     <meta name="description" content="<%this.description%>" />
   </head>
-  <body>
-    <nav>
-      <h1 class="logo"><a href="./index">网站</a></h1>
-      <a href="../index.html">首页</a>
-      <a href="../archives.html">归档</a>
-      <a href="../category.html">分类</a>
-      <a href="../tags/index.html">标签</a>
-      <a href="../about.html">关于</a>
-    </nav>
-    <h1>
-      <%this.title%>
-    </h1>
-    <div class="meta">
-      <span class="category"><%this.category%></span>
-      <div class="tag"><%this.tags%></div>
-      <span class="dateTime"><%this.dateTime%></span>
-    </div>
-    <article class="m-markdown">
-      <%this.content%>
-    </article>
+  <body class="article">
+    <header class="m-header">
+      <div class="container">
+        <h1 class="m-logo" title=""><a href="./index">网站</a></h1>
+        <nav class="m-nav">
+          <a href="./index.html">首页</a>
+          <a href="./archives.html">归档</a>
+          <a href="./category.html">分类</a>
+          <a href="./tags/index.html">标签</a>
+          <a href="./about.html">关于</a>
+        </nav>
+      </div>
+    </header>
+
+    <section class="container">
+      <h1 class="h1">
+        <%this.title%>
+      </h1>
+      <div class="meta">
+        <span class="category"><%this.category%></span>
+        <div class="tag"><%this.tags%></div>
+        <span class="dateTime"><%this.dateTime%></span>
+      </div>
+      <article class="m-markdown">
+        <%this.content%>
+      </article>
+      <aside>
+        <dl class="m-list" id="aside">
+          <dt class="m-list-title">目录</dt>
+
+          <dd class="m-list-item"></dd>
+        </dl>
+      </aside>
+    </section>
+    <script>
+      window.addEventListener("load", () => {
+        let asideDom = document.getElementById("aside");
+        var articleDom = document.querySelector(".m-markdown");
+        var hList = articleDom.querySelectorAll("h1,h2,h3,h4,h5,h6");
+
+        console.info(hList);
+        hList.forEach(item => {
+          let aTarget = document.createElement("a");
+          aTarget.id = item.innerHTML;
+          item.parentNode.insertBefore(aTarget, item);
+          var level = item.nodeName.substr(1, 1);
+          console.info(level, item.innerHTML);
+
+          let alink = document.createElement("a");
+          alink.innerHTML = item.innerHTML;
+          alink.href = "#" + item.innerHTML;
+          alink.className = "pl" + level;
+          alink.level = level;
+
+          let dt = document.createElement("dt");
+          dt.className = "m-list-item";
+          dt.appendChild(alink);
+
+          asideDom.appendChild(dt);
+        });
+      });
+    </script>
   </body>
 </html>
