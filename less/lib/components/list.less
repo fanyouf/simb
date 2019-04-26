@@ -1,0 +1,149 @@
+@import (reference) "../var.less";
+.m-list {
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  background-color: @c-bgc-mod1;
+  .m-list-title {
+    color: @c-body-title;
+    font-size: @fs-h2;
+    border-bottom: 1px solid @c-body-title;
+    padding: 0 0 0.8rem;
+    margin-bottom: 0.5rem;
+    a {
+      color: @c-body-title;
+    }
+  }
+  .m-list-item {
+    margin: 0.5rem 0;
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+  .m-item-title {
+    font-size: @fs-h3;
+  }
+  .m-item-content {
+    line-height: 1.5rem;
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+  }
+  .m-item-meta {
+    font-size: @fs-low1;
+  }
+  &.s-inline {
+    display: block;
+    .m-list-item {
+      display: inline-block;
+      margin-right: 1rem;
+    }
+  }
+  // 全部在一行中
+  &.s-single-line {
+    .m-list-item {
+      display: flex;
+      align-items: center;
+    }
+    .u-datetime {
+      order: 1;
+      margin-right: 0.5rem;
+      font-size: @fs-low1;
+    }
+    .m-item-title {
+      font-size: 1rem;
+      order: 2;
+      margin-right: 0.5rem;
+    }
+    .m-item-meta {
+      color: @c-bgc-mod2;
+      font-size: 0.8rem;
+      order: 3;
+    }
+  }
+}
+
+.m-list-inline-4 {
+  display: block;
+  .m-img-area {
+    padding: 0.5rem;
+  }
+  .item-img {
+    display: block;
+    margin: 0 auto;
+    width: 100%;
+    height: 100%;
+  }
+  .m-list-item {
+    box-sizing: border-box;
+    display: inline-block;
+    padding-right: 1rem;
+    width: 25%;
+  }
+}
+.m-list-with-img {
+  .m-list-item {
+    overflow: hidden;
+    position: relative;
+    margin-bottom: 1rem;
+    border-bottom: 1px solid #ccc;
+    margin-top: 0.5rem;
+    &:last-child {
+      margin-bottom: 0px;
+      border-bottom: none;
+    }
+    &:hover .item-img {
+      transform: scale(1.03);
+    }
+  }
+  .item-img {
+    transition: transform 0.5s;
+  }
+  .m-img-area {
+    float: left;
+    margin: 0.8rem 1.5rem 0.5rem 0;
+    overflow: hidden;
+  }
+  .m-item-content {
+    margin-top: 0.8rem;
+  }
+  .m-item-meta {
+    position: absolute;
+    bottom: 1rem;
+    right: 0;
+  }
+}
+.m-list-rank {
+  counter-reset: section;
+  .m-item-title:before {
+    counter-increment: section; /* 增加计数器值 */
+    content: counter(section); /* 显示计数器 */
+  }
+}
+.m-list-simple {
+  .m-list-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .item-meta {
+    margin: 0;
+  }
+}
+
+@media only screen and (max-width: 500px) {
+  .m-img-area {
+    display: none;
+  }
+  .m-list-with-img .m-item-meta {
+    position: initial;
+    text-align: right;
+  }
+
+  .m-list-inline-4 {
+    .m-list-item {
+      display: block;
+      padding-right: 1rem;
+      width: 100%;
+    }
+  }
+}

@@ -1,0 +1,52 @@
+.m-header {
+  width: 100%;
+  background-color: #4a4a4a;
+  line-height: 4rem;
+  display: block;
+}
+.m-header .m-logo {
+  line-height: 4rem;
+}
+.m-header:after {
+  content: "";
+  display: block;
+  height: 0;
+  clear: both;
+  visibility: hidden;
+}
+.m-header .link {
+  color: #eee;
+  margin-right: 2rem;
+}
+.m-header .link:hover {
+  color: #f78585;
+}
+.m-header .current {
+  color: #f78585;
+}
+.m-header .container {
+  max-width: 800px;
+  margin: 0 auto;
+  display: block;
+}
+.m-header .container:after {
+  content: "";
+  display: block;
+  height: 0;
+  clear: both;
+  visibility: hidden;
+}
+.m-header .m-logo {
+  float: left;
+}
+.m-header .m-nav {
+  float: right;
+}
+.m-header a {
+  color: #fff;
+}
+@media only screen and (max-width: 500px) {
+  .m-header {
+    position: sticky;
+  }
+}
