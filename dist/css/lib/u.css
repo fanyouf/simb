@@ -1,8 +1,8 @@
-.u-icon_category {
+.uuu-icon_category {
   padding-left: 1em;
   position: relative;
 }
-.u-icon_category::before {
+.uuu-icon_category::before {
   content: "";
   position: absolute;
   width: 0;
@@ -14,11 +14,11 @@
   left: 0;
   top: 0.5em;
 }
-.u-icon_tag {
+.uuu-icon_tag {
   padding-left: 1em;
   position: relative;
 }
-.u-icon_tag::before {
+.uuu-icon_tag::before {
   content: "";
   position: absolute;
   width: 0;

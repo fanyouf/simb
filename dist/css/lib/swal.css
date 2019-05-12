@@ -346,10 +346,6 @@ h6 {
   margin: 0.5rem;
   padding: 0.5rem;
 }
-.container {
-  width: 1000px;
-  margin: auto;
-}
 .g-hd {
   width: 100%;
   position: fixed;
@@ -484,7 +480,7 @@ h6 {
   color: #00a67c;
 }
 .m-list .m-list-item {
-  margin: 0.5rem 0;
+  margin: 0.2rem 0;
 }
 .m-list .m-list-item:last-child {
   margin-bottom: 0;
@@ -499,6 +495,7 @@ h6 {
 }
 .m-list .m-item-meta {
   font-size: 0.9rem;
+  color: #999;
 }
 .m-list.s-inline {
   display: block;
@@ -606,20 +603,61 @@ h6 {
   }
 }
 .m-timeline {
-  padding: 1em;
+  position: relative;
+}
+.m-timeline::before {
+  content: "";
+  position: absolute;
+  left: -4px;
+  height: 100%;
+  top: 0;
+  bottom: 0;
+  width: 4px;
+  background-color: #f5f5f5;
+}
+.m-timeline dl:before,
+.m-timeline dt::before,
+.m-timeline dd::before {
+  content: "";
+  top: 50%;
+  transform: translateY(-50%);
+  border-radius: 50%;
+  background-color: #ccc;
+  position: absolute;
+}
+.m-timeline dl::before {
+  width: 12px;
+  height: 12px;
+  left: -8px;
+}
+.m-timeline dt::before {
+  width: 10px;
+  height: 10px;
+  left: -7px;
+}
+.m-timeline dd::before {
+  width: 8px;
+  height: 8px;
+  left: -6px;
 }
 .m-timeline dt,
 .m-timeline dl,
 .m-timeline dd {
+  position: relative;
   margin: 0;
   padding: 0;
+  padding-left: 1rem;
+}
+.m-timeline dl {
+  margin-bottom: 2rem;
+  font-size: 2rem;
 }
 .m-timeline dt {
-  margin: 1.5em 0;
-  font-size: 1.2rem;
+  margin: 1.5rem 0;
+  font-size: 1.5rem;
 }
 .m-timeline dd {
-  line-height: 1.8;
+  margin-top: 1rem;
   word-wrap: break-word;
 }
 .m-timeline dd a {
@@ -627,6 +665,7 @@ h6 {
 }
 .m-timeline dd span {
   font-size: 0.8rem;
+  margin-right: 1.5rem;
 }
 .m-header {
   width: 100%;
@@ -655,7 +694,7 @@ h6 {
   color: #f78585;
 }
 .m-header .container {
-  max-width: 800px;
+  max-width: 1000px;
   margin: 0 auto;
   display: block;
 }
@@ -672,8 +711,17 @@ h6 {
 .m-header .m-nav {
   float: right;
 }
+.m-header .m-nav a {
+  margin: 0 1rem;
+}
 .m-header a {
   color: #fff;
+}
+.m-header .u-a_cur {
+  padding: 4px 8px;
+  background-color: #eee;
+  color: #000;
+  border-radius: 3px;
 }
 @media only screen and (max-width: 500px) {
   .m-header {
@@ -1679,11 +1727,11 @@ h6 {
   line-height: 1.1em;
   color: #ffffff;
 }
-.u-icon_category {
+.uuu-icon_category {
   padding-left: 1em;
   position: relative;
 }
-.u-icon_category::before {
+.uuu-icon_category::before {
   content: "";
   position: absolute;
   width: 0;
@@ -1695,11 +1743,11 @@ h6 {
   left: 0;
   top: 0.5em;
 }
-.u-icon_tag {
+.uuu-icon_tag {
   padding-left: 1em;
   position: relative;
 }
-.u-icon_tag::before {
+.uuu-icon_tag::before {
   content: "";
   position: absolute;
   width: 0;

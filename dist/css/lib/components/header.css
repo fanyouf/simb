@@ -25,7 +25,7 @@
   color: #f78585;
 }
 .m-header .container {
-  max-width: 800px;
+  max-width: 1000px;
   margin: 0 auto;
   display: block;
 }
@@ -42,8 +42,17 @@
 .m-header .m-nav {
   float: right;
 }
+.m-header .m-nav a {
+  margin: 0 1rem;
+}
 .m-header a {
   color: #fff;
+}
+.m-header .u-a_cur {
+  padding: 4px 8px;
+  background-color: #eee;
+  color: #000;
+  border-radius: 3px;
 }
 @media only screen and (max-width: 500px) {
   .m-header {

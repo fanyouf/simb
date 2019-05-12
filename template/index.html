@@ -4,18 +4,18 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>Document</title>
+    <title>凡友福的博客</title>
     <link rel="stylesheet" href="./css/index.css" />
   </head>
-  <body>
+  <body class="index">
     <header class="m-header">
       <div class="container">
-        <h1 class="m-logo" title=""><a href="./index">网站</a></h1>
+        <h1 class="m-logo" title=""><a href="./index">凡友福的博客</a></h1>
         <nav class="m-nav">
-          <a href="./index.html">首页</a>
-          <a href="./archives.html">归档</a>
+          <a class="u-a_cur" href="./index.html">首页</a>
+          <a href="./archive.html">归档</a>
           <a href="./category.html">分类</a>
-          <a href="./tags/index.html">标签</a>
+
           <a href="./about.html">关于</a>
         </nav>
       </div>
@@ -34,16 +34,20 @@
             <time
               class="u-datetime"
               datetime="<%this.postList[index].dateTime%>"
-              ><%this.postList[index].dateTime%></time
+              >发布于：<%this.postList[index].dateTime%></time
             >
             <label class="u-cate"
-              ><span class="u-icon_category"
-                ><%this.postList[index].category%></span
+              >分类：<a href="./category.html#<%this.postList[index].category%>"
+                ><span class="u-icon_category"
+                  ><%this.postList[index].category%></span
+                ></a
               ></label
             >
-            <% for(var idx in this.postList[index].tags) {%>
-            <span class="u-tag"><%this.postList[index].tags[idx] %></span>
-            <%}%>
+            <label>
+              标签： <% for(var idx in this.postList[index].tags) {%>
+              <span class="u-tag"><%this.postList[index].tags[idx] %></span>
+              <%}%>
+            </label>
           </div>
           <div class="m-item-content">
             <%this.postList[index].substr%>
@@ -56,14 +60,14 @@
         </li>
         <%}%>
       </ul>
-      <aside>
+      <!-- <aside>
         <dl class="m-list s-inline">
           <dt class="m-list-title">分类</dt>
           <% for(var index in this.cateList) {%>
           <dd class="m-list-item"><a href=""><%this.cateList[index]%></a></dd>
           <%}%>
         </dl>
-      </aside>
+      </aside> -->
     </section>
   </body>
 </html>

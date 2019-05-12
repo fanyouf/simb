@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Mr.Fan'blog</title>
+    <link rel="stylesheet" href="./css/index.css" />
+  </head>
+  <body class="about">
+    <header class="m-header">
+      <div class="container">
+        <h1 class="m-logo" title=""><a href="./index">凡友福的个站</a></h1>
+        <nav class="m-nav">
+          <a href="./index.html">首页</a>
+          <a href="./archive.html">归档</a>
+          <a href="./category.html">分类</a>
+          <a class="u-a_cur" href="./about.html">关于</a>
+        </nav>
+      </div>
+    </header>
+
+    <section class="container">
+      <div class="basic">
+        <img src="" alt="<%this.basic.name%>的图片" />
+        <span class="name"><%this.basic.name%></span>
+        <span class="nation"> <%this.basic.nation%></span>
+
+        <span class="gender"> <%this.basic.gender%></span>
+        <span class="age"> <%this.basic.age%></span>
+        <span class="degree"> <%this.basic.degree%></span>
+        <span class="phone"> <%this.basic.phone%></span>
+        <span class="email"> <%this.basic.email%></span>
+      </div>
+      <dl class="jobObjective">
+        <dt>求职意向</dt>
+        <dd>岗位：<%this.jobObjective.objName%></dd>
+        <dd>工作地点：<%this.jobObjective.location%></dd>
+        <dd>到岗时间：<%this.jobObjective.availableTime%></dd>
+        <dd>期望薪资：<%this.jobObjective.salary%></dd>
+      </dl>
+      <dl class="skills">
+        <dt>职业技能</dt>
+
+        <% for(var idx in this.skills) {%>
+        <dd><%this.skills[idx]%></dd>
+        <%}%>
+      </dl>
+      <dl class="education">
+        <dt>教育经历</dt>
+        <% for(var idx in this.education) {%>
+        <dd class="u-icon_tag">
+          <label class="dateRange"
+            ><%this.education[idx].date.join(" ~ ")%></label
+          >
+          <label class="schoolName"><%this.education[idx].school%></label>
+          <label class="major"><%this.education[idx].major%></label>
+          <label class="degree"><%this.education[idx].degree%></label>
+        </dd>
+        <%}%>
+      </dl>
+      <dl class="workingExperence">
+        <dt>工作经历</dt>
+        <% for(var idx in this.workingExperence) {%>
+        <dd class="u-icon_tag">
+          <label class="dateRange"
+            ><%this.workingExperence[idx].date.join(" ~ ")%></label
+          >
+
+          <label class="company"
+            ><%this.workingExperence[idx].company.name%></label
+          >
+          <label class="title"><%this.workingExperence[idx].title%></label>
+          <div class="description">
+            <% for(var id in this.workingExperence[idx].description) {%>
+            <p>
+              <%this.workingExperence[idx].description[id]%>
+            </p>
+            <%}%>
+          </div>
+        </dd>
+        <%}%>
+      </dl>
+    </section>
+  </body>
+</html>

@@ -1,18 +1,59 @@
 .m-timeline {
-  padding: 1em;
+  position: relative;
+}
+.m-timeline::before {
+  content: "";
+  position: absolute;
+  left: -4px;
+  height: 100%;
+  top: 0;
+  bottom: 0;
+  width: 4px;
+  background-color: #f5f5f5;
+}
+.m-timeline dl:before,
+.m-timeline dt::before,
+.m-timeline dd::before {
+  content: "";
+  top: 50%;
+  transform: translateY(-50%);
+  border-radius: 50%;
+  background-color: #ccc;
+  position: absolute;
+}
+.m-timeline dl::before {
+  width: 12px;
+  height: 12px;
+  left: -8px;
+}
+.m-timeline dt::before {
+  width: 10px;
+  height: 10px;
+  left: -7px;
+}
+.m-timeline dd::before {
+  width: 8px;
+  height: 8px;
+  left: -6px;
 }
 .m-timeline dt,
 .m-timeline dl,
 .m-timeline dd {
+  position: relative;
   margin: 0;
   padding: 0;
+  padding-left: 1rem;
+}
+.m-timeline dl {
+  margin-bottom: 2rem;
+  font-size: 2rem;
 }
 .m-timeline dt {
-  margin: 1.5em 0;
-  font-size: 1.2rem;
+  margin: 1.5rem 0;
+  font-size: 1.5rem;
 }
 .m-timeline dd {
-  line-height: 1.8;
+  margin-top: 1rem;
   word-wrap: break-word;
 }
 .m-timeline dd a {
@@ -20,4 +61,5 @@
 }
 .m-timeline dd span {
   font-size: 0.8rem;
+  margin-right: 1.5rem;
 }

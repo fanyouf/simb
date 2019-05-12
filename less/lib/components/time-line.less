@@ -1,24 +1,70 @@
 @import (reference) "../var.less";
 .m-timeline {
-  padding: 1em;
+  position: relative;
+  &::before {
+    content: "";
+    position: absolute;
+    left: -4px;
+    height: 100%;
+    top: 0;
+    bottom: 0;
+    width: 4px;
+    background-color: #f5f5f5;
+  }
+  dl:before,
+  dt::before,
+  dd::before {
+    content: "";
+    top: 50%;
+    transform: translateY(-50%);
+
+    border-radius: 50%;
+    background-color: #ccc;
+    position: absolute;
+  }
+
+  dl::before {
+    width: 12px;
+    height: 12px;
+    left: -8px;
+  }
+  dt::before {
+    width: 10px;
+    height: 10px;
+    left: -7px;
+  }
+  dd::before {
+    width: 8px;
+    height: 8px;
+    left: -6px;
+  }
+
   dt,
   dl,
   dd {
+    position: relative;
     margin: 0;
     padding: 0;
+    padding-left: 1rem;
+  }
+  dl {
+    margin-bottom: 2rem;
+    font-size: 2rem;
   }
   dt {
-    margin: 1.5em 0;
-    font-size: 1.2rem;
+    margin: 1.5rem 0;
+    font-size: 1.5rem;
   }
+
   dd {
-    line-height: 1.8;
+    margin-top: 1rem;
     word-wrap: break-word;
     a {
       color: #2479cc;
     }
     span {
       font-size: 0.8rem;
+      margin-right: 1.5rem;
     }
   }
 }

@@ -5,10 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <meta name="author" content="凡友福" />
-    <meta name="keywords" content="<%this.keywords%>" />
+    <meta name="keywords" content="<%this.title%>" />
     <title><%this.title%>|凡友福的个人博客</title>
     <link rel="stylesheet" href="../css/index.css" />
-
     <meta name="description" content="<%this.description%>" />
   </head>
   <body class="article">
@@ -16,27 +15,33 @@
       <div class="container">
         <h1 class="m-logo" title=""><a href="./index">网站</a></h1>
         <nav class="m-nav">
-          <a href="./index.html">首页</a>
-          <a href="./archives.html">归档</a>
-          <a href="./category.html">分类</a>
-          <a href="./tags/index.html">标签</a>
-          <a href="./about.html">关于</a>
+          <a href="../index.html">首页</a>
+          <a href="../archive.html">归档</a>
+          <a href="../category.html">分类</a>
+          <a href="../about.html">关于</a>
         </nav>
       </div>
     </header>
-
-    <section class="container">
-      <h1 class="h1">
-        <%this.title%>
-      </h1>
-      <div class="meta">
-        <span class="category"><%this.category%></span>
-        <div class="tag"><%this.tags%></div>
-        <span class="dateTime"><%this.dateTime%></span>
+    <section class="wrapper">
+      <div class="main">
+        <h1 class="h1">
+          <%this.title%>
+        </h1>
+        <div class="meta">
+          <span class="category"
+            >分类于：<a href="../category.html#<%this.category%>"
+              ><%this.category%></a
+            ></span
+          >
+          <%if(this.tags){%>
+          <div class="tag">标签：<%this.tags%></div>
+          <%}%>
+          <span class="dateTime">发表于：<%this.dateTime%></span>
+        </div>
+        <article class="m-markdown">
+          <%this.content%>
+        </article>
       </div>
-      <article class="m-markdown">
-        <%this.content%>
-      </article>
       <aside>
         <dl class="m-list" id="aside">
           <dt class="m-list-title">目录</dt>
@@ -45,6 +50,7 @@
         </dl>
       </aside>
     </section>
+
     <script>
       window.addEventListener("load", () => {
         let asideDom = document.getElementById("aside");

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>归档 | 凡友福的博客</title>
+    <link rel="stylesheet" href="./css/index.css" />
+  </head>
+  <body class="archive">
+    <header class="m-header">
+      <div class="container">
+        <h1 class="m-logo" title=""><a href="./index">凡友福的博客</a></h1>
+        <nav class="m-nav">
+          <a href="./index.html">首页</a>
+          <a class="u-a_cur" href="./archive.html">归档</a>
+          <a href="./category.html">分类</a>
+          <a href="./about.html">关于</a>
+        </nav>
+      </div>
+    </header>
+
+    <section class="container">
+      <% for(var index in this) {%>
+      <div class="m-timeline">
+        <dl>
+          <%this[index].year%>年
+        </dl>
+        <% for(var idx in this[index].monthList) {%>
+        <dt>
+          <%this[index].monthList[idx].month%>月
+        </dt>
+        <% for(var id in this[index].monthList[idx].dayList) {%>
+        <dd>
+            <span><%this[index].monthList[idx].month%>-<%this[index].monthList[idx].dayList[id].day%></span><a
+            class="m-item-title"
+            href="<%this[index].monthList[idx].dayList[id].link%>"
+            ><%this[index].monthList[idx].dayList[id].title%></a
+          >
+        </dd>
+        <%}%> <%}%>
+    </dl>
+      <%}%>
+    </section>
+  </body>
+</html>

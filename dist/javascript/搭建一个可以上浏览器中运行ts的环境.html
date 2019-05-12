@@ -1,5 +1,4 @@
-<!DOCTYPE html> <html lang="en">   <head>     <meta charset="UTF-8" />     <meta name="viewport" content="width=device-width, initial-scale=1.0" />     <meta http-equiv="X-UA-Compatible" content="ie=edge" />     <meta name="author" content="凡友福" />     <meta name="keywords" content="" />     <title>搭建一个可以上浏览器中运行ts的环境|凡友福的个人博客</title>     <link rel="stylesheet" href="../css/index.css" />      <meta name="description" content="" />   </head>   <body class="article">     <header class="m-header">       <div class="container">         <h1 class="m-logo" title=""><a href="./index">网站</a></h1>         <nav class="m-nav">           <a href="./index.html">首页</a>           <a href="./archives.html">归档</a>           <a href="./category.html">分类</a>           <a href="./tags/index.html">标签</a>           <a href="./about.html">关于</a>         </nav>       </div>     </header>      <section class="container">       <h1 class="h1">         搭建一个可以上浏览器中运行ts的环境       </h1>       <div class="meta">         <span class="category">javascript</span>         <div class="tag">typescript,gulp</div>         <span class="dateTime">2019-04-16</span>       </div>       <article class="m-markdown">         <h1>搭建一个在浏览器使用typescript的环境</h1>
-<p><a href="github.com/fanyoufu/learnty.git">github地址</a></p>
+<!DOCTYPE html> <html lang="en">   <head>     <meta charset="UTF-8" />     <meta name="viewport" content="width=device-width, initial-scale=1.0" />     <meta http-equiv="X-UA-Compatible" content="ie=edge" />     <meta name="author" content="凡友福" />     <meta name="keywords" content="搭建一个可以上浏览器中运行ts的环境" />     <title>搭建一个可以上浏览器中运行ts的环境|凡友福的个人博客</title>     <link rel="stylesheet" href="../css/index.css" />     <meta name="description" content="" />   </head>   <body class="article">     <header class="m-header">       <div class="container">         <h1 class="m-logo" title=""><a href="./index">网站</a></h1>         <nav class="m-nav">           <a href="../index.html">首页</a>           <a href="../archive.html">归档</a>           <a href="../category.html">分类</a>           <a href="../about.html">关于</a>         </nav>       </div>     </header>     <section class="wrapper">       <div class="main">         <h1 class="h1">           搭建一个可以上浏览器中运行ts的环境         </h1>         <div class="meta">           <span class="category"             >分类于：<a href="../category.html#javascript"               >javascript</a             ></span           >                      <div class="tag">标签：typescript,gulp</div>                      <span class="dateTime">发表于：2019-04-16</span>         </div>         <article class="m-markdown">           <p><a href="github.com/fanyoufu/learnty.git">github 地址</a></p>
 <p>目录
 [[toc]]</p>
 <h2>建立目录结构</h2>
@@ -7,23 +6,23 @@
 src/
 dist/
 </code></pre>
-<p>建议使用npm init 初始化 package.json文件</p>
-<h2>安装gulp 和 typescript</h2>
+<p>建议使用 npm init 初始化 package.json 文件</p>
+<h2>安装 gulp 和 typescript</h2>
 <ol>
-<li>全局安装gulp</li>
+<li>全局安装 gulp</li>
 </ol>
 <pre><code>npm install -g gulp-cli
 </code></pre>
 <ol start="2">
-<li>安装typescript，gulp和gulp-typescript到开发依赖项。</li>
+<li>安装 typescript，gulp 和 gulp-typescript 到开发依赖项。</li>
 </ol>
 <pre><code>npm install --save-dev typescript gulp gulp-typescript
 </code></pre>
 <ul>
-<li>typscript 是typescript的编译器</li>
-<li>gulp-typescript 是与gulp配合使用的gulp插件</li>
+<li>typscript 是 typescript 的编译器</li>
+<li>gulp-typescript 是与 gulp 配合使用的 gulp 插件</li>
 </ul>
-<h2>编写ts文件</h2>
+<h2>编写 ts 文件</h2>
 <blockquote>
 <p>目录/src/main.ts</p>
 </blockquote>
@@ -32,8 +31,8 @@ dist/
 }
 hello(&quot;TypeScript&quot;);
 </code></pre>
-<h2>配置tsconfig文件</h2>
-<p>在项目根目录下建立tsconfig.json文件。</p>
+<h2>配置 tsconfig 文件</h2>
+<p>在项目根目录下建立 tsconfig.json 文件。</p>
 <blockquote>
 <p>目录/tsconfig.json</p>
 </blockquote>
@@ -47,10 +46,10 @@ hello(&quot;TypeScript&quot;);
     }
 }
 </code></pre>
-<h2>配置gulpfile.js文件</h2>
-<p>在项目目录下建立gulpfile.js文件，来配置gulp命令</p>
+<h2>配置 gulpfile.js 文件</h2>
+<p>在项目目录下建立 gulpfile.js 文件，来配置 gulp 命令</p>
 <blockquote>
-<p>目录/gulpfile.js文件</p>
+<p>目录/gulpfile.js 文件</p>
 </blockquote>
 <pre><code>var gulp = require(&quot;gulp&quot;);
 var ts = require(&quot;gulp-typescript&quot;);
@@ -62,39 +61,39 @@ gulp.task(&quot;default&quot;, function () {
         .js.pipe(gulp.dest(&quot;dist&quot;));
 });
 </code></pre>
-<h2>运行gulp命令，查看效果</h2>
+<h2>运行 gulp 命令，查看效果</h2>
 <pre><code>gulp
 node dist/main.js
 </code></pre>
 <ul>
-<li>gulp 命令通过gulpfile.js的配置，把src/main.ts编译成dist/main.js文件。
-此时在dist下会生成一个main.js文件，其文件的内容是：</li>
+<li>gulp 命令通过 gulpfile.js 的配置，把 src/main.ts 编译成 dist/main.js 文件。
+此时在 dist 下会生成一个 main.js 文件，其文件的内容是：</li>
 </ul>
 <pre><code>function hello(compiler) {
     console.log(&quot;hello from &quot; + compiler);
 }
 hello(&quot;TypeScript&quot;);
 </code></pre>
-<p>你可以回过去对比看看 main.ts的内容和现在的main.js的内容对比。</p>
+<p>你可以回过去对比看看 main.ts 的内容和现在的 main.js 的内容对比。</p>
 <ul>
-<li>node dist/main.js 命令是在node环境中执行main.js</li>
+<li>node dist/main.js 命令是在 node 环境中执行 main.js</li>
 </ul>
-<p>以上是在node中执行javascript，那如何把javascript放在浏览器中执行呢？
-其实你可以直接把这个main.js引入到你的html页面中。</p>
-<h2>使用多个ts文件</h2>
+<p>以上是在 node 中执行 javascript，那如何把 javascript 放在浏览器中执行呢？
+其实你可以直接把这个 main.js 引入到你的 html 页面中。</p>
+<h2>使用多个 ts 文件</h2>
 <p>现实中的项目目录肯定会有很多个模块，表现在多离散的文件中。下面来尝试一下：</p>
 <p>共三步.</p>
-<h3>1/3 新建一个src/greet.ts文件：</h3>
+<h3>1/3 新建一个 src/greet.ts 文件：</h3>
 <pre><code>export function sayHello(name: string) {
     return `Hello from ${name}`;
 }
 </code></pre>
-<h3>2/3 更改src/main.ts代码，从greet.ts导入sayHello：</h3>
+<h3>2/3 更改 src/main.ts 代码，从 greet.ts 导入 sayHello：</h3>
 <pre><code>import { sayHello } from &quot;./greet&quot;;
 
 console.log(sayHello(&quot;TypeScript&quot;));
 </code></pre>
-<h3>3/3 最后，将src/greet.ts添加到tsconfig.json：</h3>
+<h3>3/3 最后，将 src/greet.ts 添加到 tsconfig.json：</h3>
 <pre><code>{
     &quot;files&quot;: [
         &quot;src/main.ts&quot;,
@@ -106,8 +105,8 @@ console.log(sayHello(&quot;TypeScript&quot;));
     }
 }
 </code></pre>
-<p>注意：files的值是一个数组，数组中最后一个元素不要加“,”。如果你加了，有可能会在接下来的任务中出错。</p>
-<p>确保执行gulp后模块是能工作的，在Node.js下进行测试：</p>
+<p>注意：files 的值是一个数组，数组中最后一个元素不要加“,”。如果你加了，有可能会在接下来的任务中出错。</p>
+<p>确保执行 gulp 后模块是能工作的，在 Node.js 下进行测试：</p>
 <pre><code>gulp
 node dist/main.js
 </code></pre>
@@ -127,10 +126,10 @@ function sayHello(name) {
 }
 exports.sayHello = sayHello;
 </code></pre>
-<p>注意，此时，你如果直接在.html文件中引用dist/main.js文件是会出错误的。原因是：浏览器中不认识require命令。 而在node环境是可以执行node main.js的，因为node支持commonJS的模块化。</p>
+<p>注意，此时，你如果直接在.html 文件中引用 dist/main.js 文件是会出错误的。原因是：浏览器中不认识 require 命令。 而在 node 环境是可以执行 node main.js 的，因为 node 支持 commonJS 的模块化。</p>
 <p>我们来证明这一点。</p>
-<h2>在浏览器环境中使用main.js</h2>
-<h3>创建src/index.html文件</h3>
+<h2>在浏览器环境中使用 main.js</h2>
+<h3>创建 src/index.html 文件</h3>
 <pre><code>&lt;!DOCTYPE html&gt;
 &lt;html lang=&quot;en&quot;&gt;
 &lt;head&gt;
@@ -145,9 +144,9 @@ exports.sayHello = sayHello;
 &lt;/body&gt;
 &lt;/html&gt;
 </code></pre>
-<h3>把index.htm从src目标拷贝到dist目录</h3>
-<p>为什么不直接在dist目录下创建这个index.html文件，而非要在src目录下创建好了再复制过去呢？ 因为src是源目录，dist是生产目录，我们只能把代码写在源目录中。</p>
-<p>这个拷贝的过程是通过建立gulp任务来完成的</p>
+<h3>把 index.htm 从 src 目标拷贝到 dist 目录</h3>
+<p>为什么不直接在 dist 目录下创建这个 index.html 文件，而非要在 src 目录下创建好了再复制过去呢？ 因为 src 是源目录，dist 是生产目录，我们只能把代码写在源目录中。</p>
+<p>这个拷贝的过程是通过建立 gulp 任务来完成的</p>
 <pre><code>let gulp = require(&quot;gulp&quot;)
 
 let ts = require(&quot;gulp-typescript&quot;)
@@ -164,33 +163,33 @@ gulp.task(&quot;default&quot;,gulp.series(&quot;copy-html&quot;,function(){
     return tsProject.src().pipe(tsProject()).js.pipe(gulp.dest(&quot;dist&quot;))
 }))
 </code></pre>
-<p>这里增加了copy-html任务并且把它加作default的依赖项。 这样，当default执行时，copy-html会被首先执行。</p>
-<p>注意：default是默认任务，而第二个参数gulp.series()这种写法是gulp4.0的写法。gulp3.0的写法有个一点小区别。请大家根据自己gulp的版本来决定。</p>
-<p>改造完gulpfile.js后，再次运行</p>
+<p>这里增加了 copy-html 任务并且把它加作 default 的依赖项。 这样，当 default 执行时，copy-html 会被首先执行。</p>
+<p>注意：default 是默认任务，而第二个参数 gulp.series()这种写法是 gulp4.0 的写法。gulp3.0 的写法有个一点小区别。请大家根据自己 gulp 的版本来决定。</p>
+<p>改造完 gulpfile.js 后，再次运行</p>
 <pre><code>gulp
 </code></pre>
 <p>可以看这个两个任务的结果:</p>
 <ol>
-<li>index.html拷贝到了dist目录</li>
-<li>main.ts,greet.ts被编译成了对应的.js文件。</li>
+<li>index.html 拷贝到了 dist 目录</li>
+<li>main.ts,greet.ts 被编译成了对应的.js 文件。</li>
 </ol>
-<h3>浏览器中的export错误</h3>
-<p>此时，我们通过浏览器打开index.html文件，你会在浏览器中看到错误信息：</p>
+<h3>浏览器中的 export 错误</h3>
+<p>此时，我们通过浏览器打开 index.html 文件，你会在浏览器中看到错误信息：</p>
 <pre><code>main.js:2 Uncaught ReferenceError: exports is not defined
     at main.js:2
 </code></pre>
 <p>那么，如何解决呢？</p>
-<h2>工程由Node.js环境移到浏览器环境里</h2>
-<p>现在，让我们把这个工程由Node.js环境移到浏览器环境里。 通过Browserify把所有模块捆绑成一个JavaScript文件。</p>
+<h2>工程由 Node.js 环境移到浏览器环境里</h2>
+<p>现在，让我们把这个工程由 Node.js 环境移到浏览器环境里。 通过 Browserify 把所有模块捆绑成一个 JavaScript 文件。</p>
 <h3>安装依赖</h3>
 <pre><code>npm install --save-dev browserify tsify vinyl-source-stream
 </code></pre>
-<p>首先，安装Browserify，tsify和vinyl-source-stream。 tsify是Browserify的一个插件，就像gulp-typescript一样，它能够访问TypeScript编译器。 vinyl-source-stream会将Browserify的输出文件适配成gulp能够解析的格式，它叫做vinyl。</p>
-<h3>修改gulpfile.js配置</h3>
+<p>首先，安装 Browserify，tsify 和 vinyl-source-stream。 tsify 是 Browserify 的一个插件，就像 gulp-typescript 一样，它能够访问 TypeScript 编译器。 vinyl-source-stream 会将 Browserify 的输出文件适配成 gulp 能够解析的格式，它叫做 vinyl。</p>
+<h3>修改 gulpfile.js 配置</h3>
 <p>几个要点：</p>
 <ol>
-<li>使用browserify处理typescript文件的插件tsify来代替 gulp-typescript</li>
-<li>配置browserify()打包.js文件到bundle.js</li>
+<li>使用 browserify 处理 typescript 文件的插件 tsify 来代替 gulp-typescript</li>
+<li>配置 browserify()打包.js 文件到 bundle.js</li>
 </ol>
 <pre><code>let gulp = require(&quot;gulp&quot;)
 
@@ -222,11 +221,11 @@ gulp.task(&quot;default&quot;,gulp.series(&quot;copy-html&quot;,function(){
     .pipe(gulp.dest(&quot;dist&quot;));
 }))
 </code></pre>
-<p>修改了default任务，让它使用tsify插件调用Browserify，而不是gulp-typescript。 方便的是，两者传递相同的参数对象到TypeScript编译器。</p>
-<p>调用bundle后，我们使用source（vinyl-source-stream的别名）把输出文件命名为bundle.js。</p>
-<p>注意，我们为Broswerify指定了debug: true。 这会让tsify在输出文件里生成source maps。 source maps允许我们在浏览器中直接调试TypeScript源码，而不是在合并后的JavaScript文件上调试。 你要打开调试器并在main.ts里打一个断点，看看source maps是否能工作。 当你刷新页面时，代码会停在断点处，从而你就能够调试greet.ts。</p>
+<p>修改了 default 任务，让它使用 tsify 插件调用 Browserify，而不是 gulp-typescript。 方便的是，两者传递相同的参数对象到 TypeScript 编译器。</p>
+<p>调用 bundle 后，我们使用 source（vinyl-source-stream 的别名）把输出文件命名为 bundle.js。</p>
+<p>注意，我们为 Broswerify 指定了 debug: true。 这会让 tsify 在输出文件里生成 source maps。 source maps 允许我们在浏览器中直接调试 TypeScript 源码，而不是在合并后的 JavaScript 文件上调试。 你要打开调试器并在 main.ts 里打一个断点，看看 source maps 是否能工作。 当你刷新页面时，代码会停在断点处，从而你就能够调试 greet.ts。</p>
 <ol start="3">
-<li>修改src/index.html中的的js文件引用</li>
+<li>修改 src/index.html 中的的 js 文件引用</li>
 </ol>
 <p>此时，应该引用 ./boundle.js</p>
 <ol start="4">
@@ -254,21 +253,21 @@ console.log(greet_1.sayHello(&quot;Typescript&quot;));
 
 </code></pre>
 <ol start="6">
-<li>打开dist/index.html文件
+<li>打开 dist/index.html 文件
 你应该可以在控制台中看到正确的输出了。</li>
 </ol>
 <h3>自动构建</h3>
-<p>在编辑保存.ts时，能立即看到效果。</p>
-<h4>安装watchify包</h4>
+<p>在编辑保存.ts 时，能立即看到效果。</p>
+<h4>安装 watchify 包</h4>
 <pre><code>npm install --save-dev watchify gulp-util
 </code></pre>
-<p>Watchify启动Gulp并保持运行状态，当你保存文件时自动编译。 帮你进入到编辑-保存-刷新浏览器的循环中。</p>
-<h4>修改gulpfile.js配置</h4>
+<p>Watchify 启动 Gulp 并保持运行状态，当你保存文件时自动编译。 帮你进入到编辑-保存-刷新浏览器的循环中。</p>
+<h4>修改 gulpfile.js 配置</h4>
 <p>共有三处改变，但是需要你略微重构一下代码。</p>
-<p>(1) 将browserify实例包裹在watchify的调用里，控制生成的结果。
-(2) 调用watchedBrowserify.on(&quot;update&quot;, bundle);，每次TypeScript文件改变时Browserify会执行bundle函数。
-(3) 调用watchedBrowserify.on(&quot;log&quot;, gutil.log);将日志打印到控制台。</p>
-<p>(1)和(2)在一起意味着我们要将browserify调用移出default任务。 然后给函数起个名字，因为Watchify和Gulp都要调用它。 (3)是可选的，但是对于调试来讲很有用。</p>
+<p>(1) 将 browserify 实例包裹在 watchify 的调用里，控制生成的结果。
+(2) 调用 watchedBrowserify.on(&quot;update&quot;, bundle);，每次 TypeScript 文件改变时 Browserify 会执行 bundle 函数。
+(3) 调用 watchedBrowserify.on(&quot;log&quot;, gutil.log);将日志打印到控制台。</p>
+<p>(1)和(2)在一起意味着我们要将 browserify 调用移出 default 任务。 然后给函数起个名字，因为 Watchify 和 Gulp 都要调用它。 (3)是可选的，但是对于调试来讲很有用。</p>
 <pre><code>let gulp = require(&quot;gulp&quot;)
 
 let browserify =require(&quot;browserify&quot;)
@@ -302,20 +301,20 @@ wathchedBrowerify.on(&quot;log&quot;,gutil.log)
 </code></pre>
 <h3>浏览器自动刷新</h3>
 <h4>安装 live-server</h4>
-<p>live-server与我们上面介绍的typescript，gulp都没有关系。 你只需要全局安装live-server。然后进入dist目录，运行live-server即可看到效果。</p>
-<p>它的<a href="https://www.npmjs.com/package/live-server">npm地址</a></p>
+<p>live-server 与我们上面介绍的 typescript，gulp 都没有关系。 你只需要全局安装 live-server。然后进入 dist 目录，运行 live-server 即可看到效果。</p>
+<p>它的<a href="https://www.npmjs.com/package/live-server">npm 地址</a></p>
 <pre><code>npm install -g live-server
 cd dist
 live-server
 </code></pre>
-<h2>在gulp中使用less</h2>
+<h2>在 gulp 中使用 less</h2>
 <h3>准备好目录</h3>
 <p>dist/css</p>
 <p>src/less</p>
-<h3>安装gulp-less包</h3>
+<h3>安装 gulp-less 包</h3>
 <pre><code>npm install gulp-less --dev
 </code></pre>
-<h3>修改gulpfile配置</h3>
+<h3>修改 gulpfile 配置</h3>
 <pre><code>let gulp = require(&quot;gulp&quot;)
 
 let browserify =require(&quot;browserify&quot;)
@@ -360,5 +359,5 @@ wathchedBrowerify.on(&quot;log&quot;,gutil.log)
 
 </code></pre>
 <h2>end</h2>
-<p>至此，我们搭建一个可以写ts代码，并在浏览器环境中运行的开发环境。</p>
-       </article>       <aside>         <dl class="m-list" id="aside">           <dt class="m-list-title">目录</dt>            <dd class="m-list-item"></dd>         </dl>       </aside>     </section>     <script>       window.addEventListener("load", () => {         let asideDom = document.getElementById("aside");         var articleDom = document.querySelector(".m-markdown");         var hList = articleDom.querySelectorAll("h1,h2,h3,h4,h5,h6");          console.info(hList);         hList.forEach(item => {           let aTarget = document.createElement("a");           aTarget.id = item.innerHTML;           item.parentNode.insertBefore(aTarget, item);           var level = item.nodeName.substr(1, 1);           console.info(level, item.innerHTML);            let alink = document.createElement("a");           alink.innerHTML = item.innerHTML;           alink.href = "#" + item.innerHTML;           alink.className = "pl" + level;           alink.level = level;            let dt = document.createElement("dt");           dt.className = "m-list-item";           dt.appendChild(alink);            asideDom.appendChild(dt);         });       });     </script>   </body> </html> 
+<p>至此，我们搭建一个可以写 ts 代码，并在浏览器环境中运行的开发环境。</p>
+         </article>       </div>       <aside>         <dl class="m-list" id="aside">           <dt class="m-list-title">目录</dt>            <dd class="m-list-item"></dd>         </dl>       </aside>     </section>      <script>       window.addEventListener("load", () => {         let asideDom = document.getElementById("aside");         var articleDom = document.querySelector(".m-markdown");         var hList = articleDom.querySelectorAll("h1,h2,h3,h4,h5,h6");          console.info(hList);         hList.forEach(item => {           let aTarget = document.createElement("a");           aTarget.id = item.innerHTML;           item.parentNode.insertBefore(aTarget, item);           var level = item.nodeName.substr(1, 1);           console.info(level, item.innerHTML);            let alink = document.createElement("a");           alink.innerHTML = item.innerHTML;           alink.href = "#" + item.innerHTML;           alink.className = "pl" + level;           alink.level = level;            let dt = document.createElement("dt");           dt.className = "m-list-item";           dt.appendChild(alink);            asideDom.appendChild(dt);         });       });     </script>   </body> </html> 
