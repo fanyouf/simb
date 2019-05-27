@@ -1,0 +1,74 @@
+<!DOCTYPE html>  <html lang="en">    <head>      <meta charset="UTF-8" />      <meta name="viewport" content="width=device-width, initial-scale=1.0" />      <meta http-equiv="X-UA-Compatible" content="ie=edge" />      <meta name="author" content="凡友福" />      <meta name="keywords" content="创建npm命令行工具" />      <title>创建npm命令行工具|凡友福的个人博客</title>      <link rel="stylesheet" href="../css/index.css" />      <meta name="description" content="" />    </head>      <body class="article">      <header class="m-header">        <div class="container">          <h1 class="m-logo" title=""><a href="./index">凡友福的博客</a></h1>          <nav class="m-nav">            <a href="../index.html">首页</a>            <a href="../archive.html">归档</a>            <a href="../category.html">分类</a>            <!-- <a href="../about.html">关于</a> -->          </nav>        </div>      </header>      <section class="wrapper">        <div class="main">          <h1 class="h1">            创建npm命令行工具          </h1>          <div class="meta">            <span class="category"              >分类于：<a href="../category.html#javascript"                >javascript</a              ></span            >                        <span class="dateTime">发表于：2019-04-22</span>          </div>          <article class="m-markdown">            <h1>如何去生成自己的xxx-cli命令</h1>
+<h2>背景</h2>
+<p>你积累了一些前端工程代码，希望这些工程代码能够复用。 比如说，为了学习使用typescript，我们在本地使用gulp,typescript,browerify,live-server等工具搭建了一个学习环境。</p>
+<p>现在，你如果把这个学习环境提供给其他小伙伴使用？</p>
+<h2>如何复用代码</h2>
+<p>复用代码给出三个选择：</p>
+<ol>
+<li>纯文件分享。</li>
+</ol>
+<p>例如，共享在百度云中。下次要使用时，直接copy下来，改改目录名，工程名。</p>
+<ol start="2">
+<li>npm包。</li>
+</ol>
+<p>在创建好前端项目之后，通过npm install XXX 的方式把代码拉下来，保存在node_modules中。通过 import 的方式使用代码。</p>
+<ol start="3">
+<li>
+<p>npm-cli 命令行</p>
+<p>具体使用方式是：</p>
+</li>
+</ol>
+<pre><code>npm instill -g XXXX;
+XXXX 命令 参数
+</code></pre>
+<p>典型的代码有 vue-cli, @vue-cli  create-react-app 等等。</p>
+<p>常见的 vue-cli, @vue-cli  create-react-app 等等。这种方式好处在于允许用户做一定的交互选择，或者设置。 例如，你在通过vue-cli 命令去创建项目时，还是允许用户去设置自己的项目名字，开发时使用的一些参数等等。</p>
+<p>显然，第三种方法更加的灵活：它不像第一，二种只是单纯的复制粘贴代码。</p>
+<h2>基本步骤</h2>
+<ol>
+<li>在github上创建代码库(下午以my-cli为例)。</li>
+<li>在本地以npm包的方式开发。</li>
+<li>开发完成后，打包上传到 npm。</li>
+<li>其他用户通过 npm install -g my-cli 的方式安装到本地。</li>
+<li>在本地运行 my-cli create ，来创建一个初始项目。</li>
+</ol>
+<h3>让你的项目支持命令行</h3>
+<ol>
+<li>在package.json中设置 bin选项。</li>
+</ol>
+<pre><code>{
+    &quot;bin&quot; : { &quot;my-cli&quot; : &quot;./cli.js&quot; }
+}
+</code></pre>
+<p>更多参考<a href="!https://docs.npmjs.com/files/package.json#bin">bin</a> 。上面的<code>my-cli</code>就是我们后面要使用的命令的名字，这里，我故意把它设置成这个包的名字。</p>
+<ol start="2">
+<li>创建 bin/cli.js文件</li>
+</ol>
+<p>在项目根目录下，创建bin/cli.js文件。其中，目录结构如下：</p>
+<pre><code>my-cli
+    -bin
+        -cli.js
+    -package.json
+</code></pre>
+<ol start="3">
+<li>编写bin/cli.js中的代码如下：</li>
+</ol>
+<pre><code>#!/usr/bin/env node
+console.info(&quot;hello my-cli !&quot;)
+</code></pre>
+<p>特别注意第一句： <code>#!/usr/bin/env node</code></p>
+<ol start="4">
+<li>本地加载这个包
+在项目目录下运行 <code>npm install -g</code> , 这样就可以直接把这个包全局安装在本地了。</li>
+</ol>
+<pre><code> npm install -g
+</code></pre>
+<p>切换到其他的目录下。你试着在控制台中运行：</p>
+<pre><code>my-cli
+</code></pre>
+<p>就会看到控制台的输出了。</p>
+<p>为啥？
+我们知道，如果在控制台中直接输入my-cli还不报错，说明，my-cli已经写入了环境目录下。在控制台中运行 <code>set</code> 命令，查看当前的环境变量。
+你会发现<code>C:\Users\用户名\AppData\Roaming\npm</code>这个路径存在于环境变中。这就意味着你在控制台中输入的命令名，会在这个目录中去找，我们设置了<code>bin</code>这个属性，所以在全局安装时，已经加入了这个<code>my-cli</code>命令在环境变量所指向的目录中。这就是为什么你可以在控制台中直接输入<code>my-cli</code>命令来调用<code>my-cli/bin/cli.js</code> 文件了。</p>
+<p>接下来，就需要我们在cli.js中具体来做一些工作了。</p>
+          </article>        </div>        <aside id="asideContianer">          <dl class="m-list outline-content" id="aside">            <dt class="m-list-title " id="asideTitle">目录</dt>              <dd class="m-list-item"></dd>          </dl>        </aside>      </section>        <script>        function buildCagloute() {          var asideDom = document.getElementById('aside');          var articleDom = document.querySelector('.m-markdown');          var hList = articleDom.querySelectorAll('h1,h2,h3,h4,h5,h6');            for (var i = 0; i < hList.length; i++) {            var item = hList[i];            var aTarget = document.createElement('a');            aTarget.id = item.innerHTML;            item.parentNode.insertBefore(aTarget, item);            var level = item.nodeName.substr(1, 1);              var alink = document.createElement('a');            alink.innerHTML = item.innerHTML;            alink.href = '#' + item.innerHTML;            alink.className = 'pl' + level + ' outline-h' + level;            alink.level = level;              var dt = document.createElement('dt');            dt.className = 'm-list-item';              dt.appendChild(alink);              asideDom.appendChild(dt);          }        }          window.onload = function() {          buildCagloute();            var aside = document.getElementById('aside');            var last_known_scroll_position = 0;          var ticking = false;            function doSomething(scroll_pos) {            aside.style.transform = 'translateY(' + scroll_pos + 'px)';              console.info('Do something with the scroll position');          }            function hScroll() {            last_known_scroll_position = window.scrollY;              if (!ticking) {              window.requestAnimationFrame(function() {                doSomething(last_known_scroll_position);                ticking = false;              });                ticking = true;            }          }          function throttle(f, dela) {            dela = dela || 500;            var timer = null;            return function() {              if (timer) {                clearTimeout(timer);              }              timer = setTimeout(function() {                f();              }, dela);            };          }          var fScroll = throttle(hScroll);            window.addEventListener('scroll', function() {            fScroll();          });        };          // function SideBar(config = {status:"close", domId:"domId"}){        //   this.sideBarDom = document.getElementById(domId);          //   this.btn = document.getElementById("asideTitle");          //   if(config.status === "close"){        //     this.sideBarDom.style.width = "0";        //   }          // }      </script>    </body>  </html>  

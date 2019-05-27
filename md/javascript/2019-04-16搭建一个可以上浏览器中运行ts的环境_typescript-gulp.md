@@ -21,6 +21,8 @@ dist/
 npm install -g gulp-cli
 ```
 
+![ddd](./2019-04-16搭建一个可以上浏览器中运行ts的环境_typescript-gulp/01.png)
+
 2. 安装 typescript，gulp 和 gulp-typescript 到开发依赖项。
 
 ```

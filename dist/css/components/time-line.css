@@ -17,7 +17,20 @@
 }
 .m-timeline dd a {
   color: #2479cc;
+  position: relative;
+  & ::after {
+    content: '';
+    position: absolute;
+    transition: all 0.3s ease-in-out;
+    transform: scale(0);
+    bottom: -5px;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background-color: #00a67c;
+  }
 }
+
 .m-timeline dd span {
   font-size: 0.8rem;
 }

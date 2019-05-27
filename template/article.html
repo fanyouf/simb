@@ -19,7 +19,7 @@
           <a href="../index.html">首页</a>
           <a href="../archive.html">归档</a>
           <a href="../category.html">分类</a>
-          <a href="../about.html">关于</a>
+          <!-- <a href="../about.html">关于</a> -->
         </nav>
       </div>
     </header>
@@ -44,8 +44,8 @@
         </article>
       </div>
       <aside id="asideContianer">
-        <dl class="m-list" id="aside">
-          <dt class="m-list-title" id="asideTitle">目录</dt>
+        <dl class="m-list outline-content" id="aside">
+          <dt class="m-list-title " id="asideTitle">目录</dt>
 
           <dd class="m-list-item"></dd>
         </dl>
@@ -54,25 +54,25 @@
 
     <script>
       function buildCagloute() {
-        var asideDom = document.getElementById("aside");
-        var articleDom = document.querySelector(".m-markdown");
-        var hList = articleDom.querySelectorAll("h1,h2,h3,h4,h5,h6");
+        var asideDom = document.getElementById('aside');
+        var articleDom = document.querySelector('.m-markdown');
+        var hList = articleDom.querySelectorAll('h1,h2,h3,h4,h5,h6');
 
         for (var i = 0; i < hList.length; i++) {
           var item = hList[i];
-          var aTarget = document.createElement("a");
+          var aTarget = document.createElement('a');
           aTarget.id = item.innerHTML;
           item.parentNode.insertBefore(aTarget, item);
           var level = item.nodeName.substr(1, 1);
 
-          var alink = document.createElement("a");
+          var alink = document.createElement('a');
           alink.innerHTML = item.innerHTML;
-          alink.href = "#" + item.innerHTML;
-          alink.className = "pl" + level;
+          alink.href = '#' + item.innerHTML;
+          alink.className = 'pl' + level + ' outline-h' + level;
           alink.level = level;
 
-          var dt = document.createElement("dt");
-          dt.className = "m-list-item";
+          var dt = document.createElement('dt');
+          dt.className = 'm-list-item';
 
           dt.appendChild(alink);
 
@@ -83,15 +83,15 @@
       window.onload = function() {
         buildCagloute();
 
-        var aside = document.getElementById("aside");
+        var aside = document.getElementById('aside');
 
         var last_known_scroll_position = 0;
         var ticking = false;
 
         function doSomething(scroll_pos) {
-          aside.style.transform = "translateY(" + scroll_pos + "px)";
+          aside.style.transform = 'translateY(' + scroll_pos + 'px)';
 
-          console.info("Do something with the scroll position");
+          console.info('Do something with the scroll position');
         }
 
         function hScroll() {
@@ -120,8 +120,7 @@
         }
         var fScroll = throttle(hScroll);
 
-        window.addEventListener("scroll", function() {
-          console.info("1");
+        window.addEventListener('scroll', function() {
           fScroll();
         });
       };
