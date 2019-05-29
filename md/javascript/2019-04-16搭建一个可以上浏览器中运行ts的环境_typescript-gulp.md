@@ -1,7 +1,13 @@
-[github 地址](github.com/fanyoufu/learnty.git)
+# 搭建一个可以在浏览器环境中运行ts的环境
 
-目录
-[[toc]]
+在学习typescript中过程中我们遇到的第一个问题就是在哪去运行ts代码（不像js可以直接在浏览器中运行，ts需要先进行编译，转成js代码之后，才能运行。），我最提供一个最简单的环境来运行ts代码，所以本文从零开始介绍了如何去搭建在浏览器环境下使用ts编写代码的环境。
+
+整体分成如下几步：
+
+- 建立基本目录
+- 安装依赖
+- 修改配置
+- 验收效果
 
 ## 建立目录结构
 
@@ -11,7 +17,9 @@ src/
 dist/
 ```
 
-建议使用 npm init 初始化 package.json 文件
+建议使用 `npm init ` 来初始化 `package.json` 文件。
+
+其中 src 就是用来存放ts文件，dist是编译之后的文件。
 
 ## 安装 gulp 和 typescript
 
@@ -21,20 +29,20 @@ dist/
 npm install -g gulp-cli
 ```
 
-![ddd](./2019-04-16搭建一个可以上浏览器中运行ts的环境_typescript-gulp/01.png)
-
 2. 安装 typescript，gulp 和 gulp-typescript 到开发依赖项。
 
 ```
 npm install --save-dev typescript gulp gulp-typescript
 ```
 
-- typscript 是 typescript 的编译器
+- typescript 是 `typescript `的编译器，它用来把ts编译成js
 - gulp-typescript 是与 gulp 配合使用的 gulp 插件
 
-## 编写 ts 文件
+## 通过gulp命令来编译第一个ts文件
 
-> 目录/src/main.ts
+### 写第一个ts 文件
+
+把在/src下新建main.ts文件，内容如下：
 
 ```
 function hello(compiler: string) {
@@ -43,7 +51,7 @@ function hello(compiler: string) {
 hello("TypeScript");
 ```
 
-## 配置 tsconfig 文件
+### 配置 tsconfig 文件
 
 在项目根目录下建立 tsconfig.json 文件。
 
@@ -61,7 +69,7 @@ hello("TypeScript");
 }
 ```
 
-## 配置 gulpfile.js 文件
+### 配置 gulpfile.js 文件
 
 在项目目录下建立 gulpfile.js 文件，来配置 gulp 命令
 
@@ -79,11 +87,10 @@ gulp.task("default", function () {
 });
 ```
 
-## 运行 gulp 命令，查看效果
+### 运行 gulp 命令，查看效果
 
 ```
 gulp
-node dist/main.js
 ```
 
 - gulp 命令通过 gulpfile.js 的配置，把 src/main.ts 编译成 dist/main.js 文件。
@@ -96,20 +103,26 @@ function hello(compiler) {
 hello("TypeScript");
 ```
 
-你可以回过去对比看看 main.ts 的内容和现在的 main.js 的内容对比。
+你可以回过去对比看看` src/main.ts` 的内容和现在的 `dist/main.js` 的内容对比。接下来通过node 命令来执行我们生成的main.js文件。
+
+```javascript
+node dist/main.js
+```
 
 - node dist/main.js 命令是在 node 环境中执行 main.js
 
 以上是在 node 中执行 javascript，那如何把 javascript 放在浏览器中执行呢？
 其实你可以直接把这个 main.js 引入到你的 html 页面中。
 
-## 使用多个 ts 文件
+## 通过gulp命令来编译多个ts文件
 
-现实中的项目目录肯定会有很多个模块，表现在多离散的文件中。下面来尝试一下：
+现实中的项目目录肯定会有很多个模块，表现在多个单纯的文件中。下面来尝试一下：
 
 共三步.
 
-### 1/3 新建一个 src/greet.ts 文件：
+###  新建一个greet.ts 文件：
+
+ 在`src/greet.ts` 中，具体的代码如下：
 
 ```
 export function sayHello(name: string) {
@@ -117,15 +130,16 @@ export function sayHello(name: string) {
 }
 ```
 
-### 2/3 更改 src/main.ts 代码，从 greet.ts 导入 sayHello：
+### 在src/main.ts 代码引入 greet.ts 
+
+修改src/main.ts文件如下：
 
 ```
 import { sayHello } from "./greet";
-
 console.log(sayHello("TypeScript"));
 ```
 
-### 3/3 最后，将 src/greet.ts 添加到 tsconfig.json：
+### 将 src/greet.ts 添加到 tsconfig.json
 
 ```
 {
@@ -141,6 +155,8 @@ console.log(sayHello("TypeScript"));
 ```
 
 注意：files 的值是一个数组，数组中最后一个元素不要加“,”。如果你加了，有可能会在接下来的任务中出错。
+
+### 运行gulp命令，对main.js进行编译
 
 确保执行 gulp 后模块是能工作的，在 Node.js 下进行测试：
 
@@ -195,7 +211,7 @@ exports.sayHello = sayHello;
 </html>
 ```
 
-### 把 index.htm 从 src 目标拷贝到 dist 目录
+### 从 src 目录中拷贝index.htm到 dist 目录
 
 为什么不直接在 dist 目录下创建这个 index.html 文件，而非要在 src 目录下创建好了再复制过去呢？ 因为 src 是源目录，dist 是生产目录，我们只能把代码写在源目录中。
 
@@ -282,7 +298,6 @@ gulp.task("copy-html",function(){
 });
 
 gulp.task("default",gulp.series("copy-html",function(){
-    // return tsProject.src().pipe(tsProject()).js.pipe(gulp.dest("dist"))
     return browserify({
         basedir:"",
         debug:true,
@@ -336,9 +351,9 @@ console.log(greet_1.sayHello("Typescript"));
 6. 打开 dist/index.html 文件
    你应该可以在控制台中看到正确的输出了。
 
-### 自动构建
+## 自动构建
 
-在编辑保存.ts 时，能立即看到效果。
+如果希望在编辑保存.ts 时，能立即在浏览器看到效果，我们可以引入watchify来实现这一点。
 
 #### 安装 watchify 包
 
@@ -357,6 +372,8 @@ Watchify 启动 Gulp 并保持运行状态，当你保存文件时自动编译�
 (3) 调用 watchedBrowserify.on("log", gutil.log);将日志打印到控制台。
 
 (1)和(2)在一起意味着我们要将 browserify 调用移出 default 任务。 然后给函数起个名字，因为 Watchify 和 Gulp 都要调用它。 (3)是可选的，但是对于调试来讲很有用。
+
+修改之后的代码如下：
 
 ```
 let gulp = require("gulp")
@@ -391,9 +408,9 @@ wathchedBrowerify.on("update",bundle);
 wathchedBrowerify.on("log",gutil.log)
 ```
 
-### 浏览器自动刷新
+## 浏览器自动刷新
 
-#### 安装 live-server
+### 安装 live-server
 
 live-server 与我们上面介绍的 typescript，gulp 都没有关系。 你只需要全局安装 live-server。然后进入 dist 目录，运行 live-server 即可看到效果。
 
@@ -405,7 +422,12 @@ cd dist
 live-server
 ```
 
-## 在 gulp 中使用 less
+## 在 html 中使用 less
+
+在写页面时，不可避免地要用到css预编译工具，以less为例进行介绍，大家也可以同理拓展到其它的语言中。基本步骤是：
+
+- 安装less包
+- 修改gulp配置文件
 
 ### 准备好目录
 
@@ -415,11 +437,15 @@ src/less
 
 ### 安装 gulp-less 包
 
+由于我们的工程化使用gulp工具，所以直接本地安装gulp-less即可。
+
 ```
 npm install gulp-less --dev
 ```
 
 ### 修改 gulpfile 配置
+
+把less转css的工作，写入gulp任务。
 
 ```
 let gulp = require("gulp")
@@ -466,6 +492,10 @@ wathchedBrowerify.on("log",gutil.log)
 
 ```
 
-## end
+## 总结
 
-至此，我们搭建一个可以写 ts 代码，并在浏览器环境中运行的开发环境。
+至此，我们搭建一个可以写 ts 代码，并在浏览器环境中运行的开发环境。它可以
+
+- 即时编译ts代码 
+- 浏览器自动刷新
+- 支持less
