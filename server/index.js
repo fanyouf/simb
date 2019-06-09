@@ -1,41 +1,42 @@
 // 遍历目录
 // 2019/5/27
+// const mdPath = path.parse("../md");
+const BASICEPATH = '../md',
+  OUTPUTPATH = '../dist';
 const fs = require('fs');
 const util = require('./util/fileInfo');
 const fsutil = require('./util/fsutil');
-var markdown = require('markdown-js');
-// const mdPath = path.parse("../md");
-const dir = fs.readdirSync('../md');
-const cateList = {};
-const postList = [];
+const markdown = require('markdown-js');
+const cateList = {},
+  dir = fs.readdirSync(BASICEPATH),
+  path = require('path'),
+  postList = [];
+
 dir.forEach(category => {
   cateList[category] = [];
 
-  let files = fs.readdirSync('../md/' + category);
+  let files = fs.readdirSync(path.join(BASICEPATH, category));
+
   files.forEach(file => {
-    let currentPath = '../md/' + category + '/' + file;
-    let status = fs.lstatSync(currentPath);
+    let currentPath = path.join(BASICEPATH, category, file),
+      status = fs.lstatSync(currentPath);
+
     if (status.isDirectory()) {
-      fsutil.copyDir(currentPath, '../dist/' + category + '/' + file);
-    } else {
+      fsutil.copyDir(currentPath, path.join(OUTPUTPATH, category, file));
+    } else if (file.includes('.md')) {
+      let arr = file.replace('.md', '').split('_');
       let f = {};
-      // 分隔摘要
       let mdstr = fs.readFileSync(currentPath).toString();
+
       f.content = markdown.makeHtml(mdstr);
       f.substr = mdstr.substr(0, 100).replace(/#/g, '');
 
-      file = file.replace('.md', '');
-
-      f.dateTime = file.substr(0, 10);
-      file = file.replace(f.dateTime, '');
-
-      let t = file.split('_');
-      f.fileName = t[0];
-      f.title = t[0];
+      f.dateTime = arr[0].replace(/(\d{4})(\d{2})(\d{2})/, (r, r1, r2, r3) =>
+        [r1, r2, r3].join('-')
+      );
+      f.title = arr[1];
+      f.fileName = arr[2]; // 文件对应的英文名称
       f.linkName = `${category}/${f.fileName}.html`;
-      if (t[1]) {
-        f.tags = t[1].split('-');
-      }
       f.category = category;
 
       util.buildPost(f);
@@ -63,4 +64,5 @@ let cateList1 = Object.keys(cateList).map(key => {
     list: cateList[key]
   };
 });
+
 util.buildCate(cateList1);

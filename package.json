@@ -10,8 +10,10 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "ftp": "^0.3.10",
     "gulp": "^4.0.0",
     "gulp-less": "^4.0.1",
-    "markdown-js": "0.0.4"
+    "markdown-js": "0.0.4",
+    "node-ftp": "^0.3.10"
   }
 }

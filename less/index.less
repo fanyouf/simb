@@ -42,8 +42,14 @@
   }
 }
 .article {
+  .m-header {
+    position: fixed;
+    top: 0;
+    z-index: 1;
+  }
   section.wrapper {
     width: 100%;
+    padding-top: 2rem;
     background-color: #fff;
     display: flex;
   }
@@ -55,7 +61,7 @@
   .main {
     flex: 1;
     padding: 3rem 2rem 3rem 3rem;
-
+    padding-left: 20rem;
     overflow: hidden;
   }
 
@@ -76,15 +82,16 @@
     }
   }
   aside {
-    flex: 0 0 350px;
-    position: relative;
-    .m-list {
-      transition: transform 0.5s;
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
+    a {
+      line-height: 2em;
+      display: block;
     }
+    width: 20rem;
+    position: fixed;
+    top: 4rem;
+    bottom: 0;
+    left: 0;
+    overflow: auto;
   }
 }
 .category {

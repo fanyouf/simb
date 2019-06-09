@@ -7,7 +7,7 @@
     <meta name="author" content="凡友福" />
     <meta name="keywords" content="<%this.title%>" />
     <title><%this.title%>|凡友福的个人博客</title>
-    <link rel="stylesheet" href="../css/index.css" />
+    <link rel="stylesheet" href="../static/css/index.css" />
     <meta name="description" content="<%this.description%>" />
   </head>
 
@@ -44,97 +44,11 @@
         </article>
       </div>
       <aside id="asideContianer">
-        <dl class="m-list outline-content" id="aside">
-          <dt class="m-list-title " id="asideTitle">目录</dt>
-
-          <dd class="m-list-item"></dd>
-        </dl>
+        <div class="m-list outline-content" id="aside">
+          <h3 class="m-list-title " id="asideTitle">目录</h3>
+        </div>
       </aside>
     </section>
-
-    <script>
-      function buildCagloute() {
-        var asideDom = document.getElementById('aside');
-        var articleDom = document.querySelector('.m-markdown');
-        var hList = articleDom.querySelectorAll('h1,h2,h3,h4,h5,h6');
-
-        for (var i = 0; i < hList.length; i++) {
-          var item = hList[i];
-          var aTarget = document.createElement('a');
-          aTarget.id = item.innerHTML;
-          item.parentNode.insertBefore(aTarget, item);
-          var level = item.nodeName.substr(1, 1);
-
-          var alink = document.createElement('a');
-          alink.innerHTML = item.innerHTML;
-          alink.href = '#' + item.innerHTML;
-          alink.className = 'pl' + level + ' outline-h' + level;
-          alink.level = level;
-
-          var dt = document.createElement('dt');
-          dt.className = 'm-list-item';
-
-          dt.appendChild(alink);
-
-          asideDom.appendChild(dt);
-        }
-      }
-
-      window.onload = function() {
-        buildCagloute();
-
-        var aside = document.getElementById('aside');
-
-        var last_known_scroll_position = 0;
-        var ticking = false;
-
-        function doSomething(scroll_pos) {
-          aside.style.transform = 'translateY(' + scroll_pos + 'px)';
-
-          console.info('Do something with the scroll position');
-        }
-
-        function hScroll() {
-          last_known_scroll_position = window.scrollY;
-
-          if (!ticking) {
-            window.requestAnimationFrame(function() {
-              doSomething(last_known_scroll_position);
-              ticking = false;
-            });
-
-            ticking = true;
-          }
-        }
-        function throttle(f, dela) {
-          dela = dela || 500;
-          var timer = null;
-          return function() {
-            if (timer) {
-              clearTimeout(timer);
-            }
-            timer = setTimeout(function() {
-              f();
-            }, dela);
-          };
-        }
-        var fScroll = throttle(hScroll);
-
-        window.addEventListener('scroll', function() {
-          fScroll();
-        });
-      };
-
-      // function SideBar(config = {status:"close", domId:"domId"}){
-      //   this.sideBarDom = document.getElementById(domId);
-
-      //   this.btn = document.getElementById("asideTitle");
-
-      //   if(config.status === "close"){
-      //     this.sideBarDom.style.width = "0";
-      //   }
-
-      // }
-    </script>
+    <script src="../static/article.js"></script>
   </body>
 </html>
