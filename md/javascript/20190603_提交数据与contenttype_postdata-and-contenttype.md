@@ -14,8 +14,8 @@ ajax 的用来从浏览器发送异步请求到服务器端，并根据返回值
 
 ```javascript
 var xhr = new XMLHttpRequest();
-xhr.open("post", "common/post");
-xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+xhr.open('post', 'common/post');
+xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
 xhr.send(`userName=${userName}&userPassword=${userPassword}`);
 xhr.onload = function() {
   console.info(xhr.response);
@@ -32,9 +32,9 @@ xhr.onload = function() {
 
 ```javascript
 $.ajax({
-  url: "./common/post",
-  type: "post",
-  data: { name: "jake", age: 30 }
+  url: './common/post',
+  type: 'post',
+  data: { name: 'jake', age: 30 }
 });
 ```
 

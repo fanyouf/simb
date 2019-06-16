@@ -34,7 +34,7 @@ dir.forEach(category => {
       f.dateTime = arr[0].replace(/(\d{4})(\d{2})(\d{2})/, (r, r1, r2, r3) =>
         [r1, r2, r3].join('-')
       );
-      f.title = arr[1];
+      f.title = arr[1]; // 中文名
       f.fileName = arr[2]; // 文件对应的英文名称
       f.linkName = `${category}/${f.fileName}.html`;
       f.category = category;

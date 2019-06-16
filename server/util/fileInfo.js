@@ -1,16 +1,62 @@
 const fs = require('fs');
 const tpl = require('./tpl');
+const path = require('path');
+const markdown = require('markdown-js');
+
+module.exports.buildPostByFile = file => {
+  let dirName = path.dirname(file);
+  let idx = dirName.lastIndexOf('md');
+
+  dirName = dirName.slice(idx + 2);
+
+  let arr = path
+    .basename(file)
+    .replace('.md', '')
+    .split('_');
+  let post = {};
+  let mdstr = fs.readFileSync(file).toString();
+
+  post.content = markdown.makeHtml(mdstr);
+  post.substr = mdstr.substr(0, 100).replace(/#/g, '');
+
+  post.dateTime = arr[0].replace(/(\d{4})(\d{2})(\d{2})/, (r, r1, r2, r3) =>
+    [r1, r2, r3].join('-')
+  );
+  post.title = arr[1]; // 中文名
+  post.fileName = arr[2]; // 文件对应的英文名称
+  post.linkName = `${dirName}/${post.fileName}.html`;
+  post.category = dirName;
+
+  console.info(process.execPath, __dirname);
+  let p = path.join(__dirname, '../template/article.html');
+  let blogTemplate = fs.readFileSync(p).toString(),
+    html = tpl(blogTemplate, post),
+    paths = post.linkName.split('/');
+
+  paths = paths[0];
+  if (!fs.existsSync(path.join(__dirname, '../../dist/', paths))) {
+    fs.mkdirSync(path.join(__dirname, '../../dist/' + paths));
+  }
+  fs.writeFileSync(path.join(__dirname, '../../dist/' + post.linkName), html);
+  console.info(post.linkName + '....done');
+};
 
 module.exports.buildPost = post => {
-  let blogTemplate = fs.readFileSync('../template/article.html').toString(),
+  console.info(process.execPath, __dirname);
+  let p = path.join(__dirname, '../template/article.html');
+  let blogTemplate = fs.readFileSync(p).toString(),
     html = tpl(blogTemplate, post),
-    path = post.linkName.split('/');
+    paths = post.linkName.split('/');
 
-  path = path[0];
-  if (!fs.existsSync('../dist/' + path)) {
-    fs.mkdirSync('../dist/' + path);
+  paths = paths[0];
+  if (!fs.existsSync(path.join(__dirname, '../../dist/', paths))) {
+    fs.mkdirSync(path.join(__dirname, '../../dist/' + paths));
   }
-  fs.writeFileSync('../dist/' + post.linkName, html);
+  let finallyFileName = path.join(__dirname, '../../dist/' + post.linkName);
+
+  console.info('finallyFileName', finallyFileName);
+
+  fs.writeFileSync(finallyFileName, html);
   console.info(post.linkName + '....done');
 };
 
