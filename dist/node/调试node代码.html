@@ -1,0 +1,51 @@
+<!DOCTYPE html>  <html lang="en">    <head>      <meta charset="UTF-8" />      <meta name="viewport" content="width=device-width, initial-scale=1.0" />      <meta http-equiv="X-UA-Compatible" content="ie=edge" />      <meta name="author" content="凡友福" />      <meta name="keywords" content="debug-node" />      <title>debug-node|凡友福的个人博客</title>      <link rel="stylesheet" href="../static/css/index.css" />      <meta name="description" content="" />    </head>      <body class="article">      <header class="m-header">        <div class="container">          <h1 class="m-logo" title=""><a href="../index.html">凡友福的博客</a></h1>          <nav class="m-nav"></nav>            <a href="../index.html">首页</a>            <a href="../archive.html">归档</a>            <a href="../category.html">分类</a>            <!-- <a href="../about.html">关于</a> -->          </nav>        </div>      </header>      <section class="wrapper">        <div class="main">          <h1 class="h1">            debug-node          </h1>          <div class="meta">            <span class="category"              >分类于：<a href="../category.html#\node"                >\node</a              ></span            >                        <span class="dateTime">发表于：D:\m\simb\md\node\2019-06-09</span>          </div>          <article class="m-markdown">            <h1>如何调试 node 代码</h1>
+<h2>node 代码</h2>
+<p>代码: <code>node --inspect index.js</code></p>
+<p>.vscode 中会自动产生一个 launch.json 文件</p>
+<pre><code>{
+    // 使用 IntelliSense 了解相关属性。
+    // 悬停以查看现有属性的描述。
+    // 欲了解更多信息，请访问: https://go.microsoft.com/fwlink/?linkid=830387
+    &quot;version&quot;: &quot;0.2.0&quot;,
+    &quot;configurations&quot;: [
+        {
+            &quot;type&quot;: &quot;node&quot;,
+            &quot;request&quot;: &quot;launch&quot;,
+            &quot;name&quot;: &quot;启动程序&quot;,
+            &quot;program&quot;: &quot;${workspaceFolder}/index.js&quot;
+        }
+    ]
+}
+</code></pre>
+<p>加上断点，就可以在 vscode 的调试面板中查看效果了。</p>
+<h2>浏览器中调试</h2>
+<pre><code>node --inspect server.js
+</code></pre>
+<p>会输出</p>
+<pre><code>Debugger listening on ws://127.0.0.1:9229/845f1fd0-2ff2-45d6-bcfe-246b085700b1
+For help see https://nodejs.org/en/docs/inspector
+</code></pre>
+<p>复制<code>127.0.0.1:9229/json</code>到浏览器中,可以看到如下：</p>
+<pre><code>[ {
+  &quot;description&quot;: &quot;node.js instance&quot;,
+  &quot;devtoolsFrontendUrl&quot;: &quot;chrome-devtools://devtools/bundled/inspector.html?experiments=true&amp;v8only=true&amp;ws=127.0.0.1:9229/845f1fd0-2ff2-45d6-bcfe-246b085700b1&quot;,
+  &quot;faviconUrl&quot;: &quot;https://nodejs.org/static/favicon.ico&quot;,
+  &quot;id&quot;: &quot;845f1fd0-2ff2-45d6-bcfe-246b085700b1&quot;,
+  &quot;title&quot;: &quot;server.js&quot;,
+  &quot;type&quot;: &quot;node&quot;,
+  &quot;url&quot;: &quot;file:///Users/fanyoufu/传智播客/fanyoufu/01-ajax/代码/nativeServer/server.js&quot;,
+  &quot;webSocketDebuggerUrl&quot;: &quot;ws://127.0.0.1:9229/845f1fd0-2ff2-45d6-bcfe-246b085700b1&quot;
+} ]
+</code></pre>
+<p>两种方式去开始浏览器中调试：</p>
+<ul>
+<li>
+<p>直接在浏览器中输入：chrome://inspect/#devices
+可能需要去端口与 ip 地址进行配置了。</p>
+</li>
+<li>
+<p>上面的 json 中 chrome-devtools 复制，直接在浏览器中输入。
+在 sources 中，你可能什么也看不到，不要紧，通过 open 命令，输入在 node 中写的文件名，再回车，你就可以看到你的 node 中的文件了。然后，正常通过 chrome 浏览器进行调试。</p>
+</li>
+</ul>
+          </article>        </div>        <aside id="asideContianer">          <div class="m-list outline-content" id="aside">            <h3 class="m-list-title " id="asideTitle">目录</h3>          </div>        </aside>      </section>      <script src="../static/article.js"></script>    </body>  </html>  
