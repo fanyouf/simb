@@ -61,7 +61,7 @@ module.exports.buildPost = post => {
 };
 
 module.exports.buildIndex = (postList, cateList) => {
-  let blogTemplate = fs.readFileSync('../template/index.html').toString(),
+  let blogTemplate = fs.readFileSync('./template/index.html').toString(),
     html = tpl(blogTemplate, { postList, cateList });
   // let str = postList.map(post => {
   //   return `<li>
@@ -76,7 +76,7 @@ module.exports.buildIndex = (postList, cateList) => {
 };
 
 module.exports.buildCate = cateList => {
-  let blogTemplate = fs.readFileSync('../template/category.html').toString(),
+  let blogTemplate = fs.readFileSync('./template/category.html').toString(),
     html = tpl(blogTemplate, cateList);
   // let str = postList.map(post => {
   //   return `<li>
@@ -91,7 +91,7 @@ module.exports.buildCate = cateList => {
 };
 
 module.exports.buildAbout = () => {
-  let blogTemplate = fs.readFileSync('../template/about.html').toString(),
+  let blogTemplate = fs.readFileSync('./template/about.html').toString(),
     me = {
       basic: {
         name: '凡友福',
@@ -180,7 +180,7 @@ module.exports.buildArchive = postList => {
           b.year * 1000 + b.month * 30 + b.day
         );
       }),
-    blogTemplate = fs.readFileSync('../template/archive.html').toString(),
+    blogTemplate = fs.readFileSync('./template/archive.html').toString(),
     post = [];
 
   postArr.forEach(ele => {

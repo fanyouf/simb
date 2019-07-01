@@ -16,9 +16,7 @@ gulp.task('less', function() {
 });
 
 watch('md/**/**', function(event) {
-  console.log(
-    'File ' + event.path + ' was ' + event.type + ', running tasks...'
-  );
+  console.log('File ' + event.path + ' was ' + event + ', running tasks...');
   fileUtil.buildPostByFile(event.path);
 });
 

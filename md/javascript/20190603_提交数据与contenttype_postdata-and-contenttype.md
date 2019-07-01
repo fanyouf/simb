@@ -42,7 +42,7 @@ application/json 这个 Content-Type 作为响应头大家肯定不陌生。实�
 
 JSON 格式支持比键值对复杂得多的结构化数据，这一点也很有用。记得我几年前做一个项目时，需要提交的数据层次非常深，我就是把数据 JSON 序列化之后来提交的。不过当时我是把 JSON 字符串作为 val，仍然放在键值对里，以 x-www-form-urlencoded 方式提交。
 
-axios 在发 post 请求时，就设置 content-type 是这个值。
+著名的第三方库`axios` 在使用 post 请求时，默认设置 content-type 就是这个值。
 
 ![1559566728597](assets/1559566728597.png)
 
@@ -78,20 +78,25 @@ $('#btn').click(function() {
 
 如何你采用这种方式去传递数据到后端，则需要后端代码的特殊支持，至少在 node+express 环境下，你需要安装类似于
 
+```
 const multipart = require('connect-multiparty');
-
 var multipartMiddleware = multipart();
 
 router.post('/post', multipartMiddleware, function(req, res) {
 
 let d = Object.assign({}, req.body, {
 
-​ \_t: Date.now(),
+ \_t: Date.now(),
 
-​ str: '服务器返回成功'
+ str: '服务器返回成功'
 
 });
 
 res.json(d);
 
 });
+```
+
+小结：
+
+从前端向后端传值是 一个非常普遍存在的应用场景，本文讨论了三种常见的post提交数据使用的content-type，希望对你有帮助。

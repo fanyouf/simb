@@ -28,7 +28,7 @@ function buildCagloute() {
     level = item.nodeName.substr(1, 1);
     alink = document.createElement('a');
     aTarget.href = '#' + item.innerHTML;
-    aTarget.innerHTML = '#';
+    aTarget.innerHTML = '';
 
     aTarget.id = item.innerHTML;
     item.parentNode.insertBefore(aTarget, item);

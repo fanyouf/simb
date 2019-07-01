@@ -4,8 +4,6 @@
 
 我建议的答案是：数据是从上级组件中产生，然后流向下级。举个例子：
 
-ad
-
 ```
 <my-header>
     <div>
@@ -33,10 +31,6 @@ ad
 | 3   | 子组件 | ->父组件 | 子组件内部改状态   | 是           |
 
 ```
-
-
-
-
 <div>
     <son-component @myevent="hEvent"></son-component>
 </div>
