@@ -4,7 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "index": "echo \"构建主页\" && cd ./server &&  node _build_index.js",
+    "start": "echo \"构建全部网页\" cd ./server &&  node index.js",
+    "resetinfo": "echo \"重新初始化课程下面的说明信息\" && cd ./server &&  node _reset_info.js"
   },
   "keywords": [],
   "author": "",
@@ -15,6 +17,16 @@
     "gulp-less": "^4.0.1",
     "gulp-watch": "^5.0.1",
     "markdown-js": "0.0.4",
-    "node-ftp": "^0.3.10"
+    "node-ftp": "^0.3.10",
+    "pinyin": "^2.9.0"
+  },
+  "devDependencies": {
+    "eslint": "^6.8.0",
+    "eslint-config-airbnb-base": "^14.0.0",
+    "eslint-config-standard": "^14.1.0",
+    "eslint-plugin-import": "^2.19.1",
+    "eslint-plugin-node": "^10.0.0",
+    "eslint-plugin-promise": "^4.2.1",
+    "eslint-plugin-standard": "^4.0.1"
   }
 }

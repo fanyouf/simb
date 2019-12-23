@@ -1,0 +1,36 @@
+  <section class="container">
+    <ul class="m-list fl">
+      <% for(var index in this.postList) {%>
+      <li class="m-list-item">
+        <h2 class="m-item-title">
+          <a href="./<%this.postList[index].linkName%>"><%this.postList[index].title%></a>
+        </h2>
+        <div class="m-item-meta">
+          <time class="u-datetime"
+            datetime="<%this.postList[index].dateTime%>">发布于：<%this.postList[index].dateTime%></time>
+          <label class="u-cate">分类：<a href="./category.html#<%this.postList[index].category%>"><span
+                class="u-icon_category"><%this.postList[index].category%></span></a></label>
+          <!-- <label>
+              标签： <% for(var idx in this.postList[index].tags) {%>
+              <span class="u-tag"><%this.postList[index].tags[idx] %></span>
+              <%}%>
+            </label> -->
+        </div>
+        <div class="m-item-content">
+          <%this.postList[index].substr%>
+        </div>
+        <div>
+          <a class="u-more" href="./<%this.postList[index].linkName%>">阅读全文</a>
+        </div>
+      </li>
+      <%}%>
+      </ul>
+      <!-- <aside>
+        <dl class="m-list s-inline">
+          <dt class="m-list-title">分类</dt>
+          <% for(var index in this.cateList) {%>
+      <dd class="m-list-item"><a href=""><%this.cateList[index]%></a></dd>
+      <%}%>
+        </dl>
+      </aside> -->
+    </section>

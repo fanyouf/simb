@@ -38,6 +38,9 @@
 .mb1 {
   margin-bottom: 1rem;
 }
+.mt1 {
+  margin-top: 1rem;
+}
 .mr1 {
   margin-right: 1rem;
 }
@@ -79,7 +82,16 @@
   color: #00a67c;
 }
 .m-bgc-mod1 {
-  background-color: #fff;
+  background-color: #123;
+}
+.fw {
+  font-weight: bold;
+}
+.lh2 {
+  line-height: 2;
+}
+.lh3 {
+  line-height: 3;
 }
 .m-layout-2c {
   display: flex;
@@ -125,9 +137,9 @@ html {
 body {
   font-size: 14px;
   margin: 0;
-  color: #1a2a3a;
+  color: #123;
   font-family: "Hiragino Sans GB", "Microsoft Yahei", SimSun, Helvetica, Arial, Sans-serif;
-  background-color: #eee;
+  background-color: #f3f5f6;
 }
 /**
    * Correct the font size and margin on `h1` elements within `section` and
@@ -169,7 +181,7 @@ pre {
 a {
   background-color: transparent;
   text-decoration: none;
-  color: #1a2a3a;
+  color: #123;
 }
 a:hover {
   color: #000000;
@@ -413,6 +425,7 @@ template {
   display: none;
 }
 ul,
+ol,
 li,
 dl,
 dt,

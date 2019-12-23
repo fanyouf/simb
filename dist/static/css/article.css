@@ -1,0 +1,53 @@
+body.article {
+  background-color: #f3f5f6;
+  /*课程其它文章*/
+}
+body.article .article-content {
+  width: 800px;
+  margin: 0 auto 6em;
+  padding: 3rem;
+  background-color: #fff;
+  box-shadow: 0 4px 8px 0 rgba(28, 31, 33, 0.1);
+}
+body.article .article-bottom-tip {
+  position: relative;
+  top: 6em;
+  height: auto;
+  margin: auto;
+  overflow: hidden;
+  line-height: 1;
+  text-align: center;
+  color: #9199a1;
+  font-size: 14px;
+  width: 60%;
+}
+body.article .article-bottom-tip::before,
+body.article .article-bottom-tip::after {
+  position: absolute;
+  content: "";
+  z-index: 3;
+  width: 50%;
+  top: 50%;
+  height: 0;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+body.article .article-bottom-tip::before {
+  margin-left: calc(-50% - 3em);
+}
+body.article .article-bottom-tip::after {
+  margin-left: 3em;
+}
+body.article .aside {
+  position: fixed;
+  top: 5rem;
+  width: 16rem;
+  right: 1em;
+  padding: 2rem;
+  overflow: hidden;
+  background-color: #fff;
+  line-height: 1.5;
+}
+body.article .aside .cur {
+  font-weight: bold;
+}

@@ -15,8 +15,11 @@ const fs = require('fs'),
       }
     });
   },
+
+
   copy = function(src, dst) {
     //读取目录
+
     fs.readdir(src, function(err, paths) {
       if (err) {
         throw err;

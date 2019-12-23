@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="zh">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title><%this.course.name%>课程页|><%this.config.site_name%></title>
+    <link rel="stylesheet" href="../static/css/lib/swal.css" />
+
+    <link rel="stylesheet" href="../static/css/public.css" />
+    <link rel="stylesheet" href="../static/css/index.css" />
+  
+  </head>
+  <body class="course">
+    <header class="m-header">
+      <div class="container">
+        <h1 class="m-logo" title=""><a href="../index.html"> <%this.config.site_name%></a></h1>
+        <nav class="m-nav">
+          <a href="./blog.html">博客</a>
+          <a class="u-a_cur" href="./about.html">关于</a>
+        </nav>
+      </div>
+    </header>
+
+    <div class="container">
+      <div class="m-list s-single-line">
+        <h2 class="m-list-title">
+          <%this.course.name%>[<%this.course.article_list.length%>]
+        </h2>
+        <ol>
+        <% for(var idx in this.course.article_list) {%>
+        <li class="m-list-item">
+          <a class="m-item-title" href="../<%this.course.article_list[idx].link_name%>"
+            ><%this.course.article_list[idx].id%><%this.course.article_list[idx].name%></a
+            >
+          </li>
+        <%}%>
+      </ol>
+      </div>
+    </section>
+  </body>
+</html>

@@ -19,59 +19,64 @@ module.exports.buildPostByFile = file => {
   post.content = markdown.makeHtml(mdstr);
   post.substr = mdstr.substr(0, 100).replace(/#/g, '');
 
-  post.dateTime = arr[0].replace(/(\d{4})(\d{2})(\d{2})/, (r, r1, r2, r3) =>
+  post.date_time = arr[0].replace(/(\d{4})(\d{2})(\d{2})/, (r, r1, r2, r3) =>
     [r1, r2, r3].join('-')
   );
   post.title = arr[1]; // 中文名
   post.fileName = arr[2]; // 文件对应的英文名称
-  post.linkName = `${dirName}/${post.fileName}.html`;
+  post.link_name = `${dirName}/${post.fileName}.html`;
   post.category = dirName;
 
   console.info(process.execPath, __dirname);
   let p = path.join(__dirname, '../template/article.html');
   let blogTemplate = fs.readFileSync(p).toString(),
     html = tpl(blogTemplate, post),
-    paths = post.linkName.split('/');
+    paths = post.link_name.split('/');
 
   paths = paths[0];
   if (!fs.existsSync(path.join(__dirname, '../../dist/', paths))) {
     fs.mkdirSync(path.join(__dirname, '../../dist/' + paths));
   }
-  fs.writeFileSync(path.join(__dirname, '../../dist/' + post.linkName), html);
-  console.info(post.linkName + '....done');
+  fs.writeFileSync(path.join(__dirname, '../../dist/' + post.link_name), html);
+  console.info(post.link_name + '....done');
 };
 
-module.exports.buildPost = post => {
-  console.info(process.execPath, __dirname);
+module.exports.buildPost = ({config,fileObj,article_list}) => {
   let p = path.join(__dirname, '../template/article.html');
   let blogTemplate = fs.readFileSync(p).toString(),
-    html = tpl(blogTemplate, post),
-    paths = post.linkName.split('/');
+    html = tpl(blogTemplate, {config,fileObj,article_list}),
+    paths = fileObj.link_name.split('/');
 
   paths = paths[0];
   if (!fs.existsSync(path.join(__dirname, '../../dist/', paths))) {
     fs.mkdirSync(path.join(__dirname, '../../dist/' + paths));
   }
-  let finallyFileName = path.join(__dirname, '../../dist/' + post.linkName);
+  let finallyFileName = path.join(__dirname, '../../dist/' + fileObj.link_name);
 
   console.info('finallyFileName', finallyFileName);
 
   fs.writeFileSync(finallyFileName, html);
-  console.info(post.linkName + '....done');
+  console.info( fileObj.link_name + '....done');
 };
 
-module.exports.buildIndex = (postList, cateList) => {
-  let blogTemplate = fs.readFileSync('./template/index.html').toString(),
-    html = tpl(blogTemplate, { postList, cateList });
-  // let str = postList.map(post => {
-  //   return `<li>
-  //     <h3><a href="${post.linkName}">${post.title}</a></h3>
-  //   </li>`;
-  // });
+// 创建课程页
+// 相当于是列表页
+module.exports.buildCourse = ({config,course}) => {
 
-  // blogTemplate = blogTemplate.replace("<%lastTopPost%>", str);
+  let temp = fs.readFileSync(path.join(__dirname, '../template/course.html')).toString();
+  let html = tpl(temp, {config,course});
 
-  // fs.writeFileSync("../dist/index.html", blogTemplate);
+  let finallyFileName = path.join(__dirname, '../../dist/' + course.index_path);
+
+  console.info('finallyFileName', finallyFileName);
+
+  fs.writeFileSync(finallyFileName, html);
+  console.info(course.name + '的主页生成完成');
+};
+
+module.exports.buildIndex = ({config,course_list}) => {
+  let blogTemplate = fs.readFileSync('./template/index.html').toString();
+  let html = tpl(blogTemplate, {course_list,config });
   fs.writeFileSync('../dist/index.html', html);
 };
 
@@ -80,7 +85,7 @@ module.exports.buildCate = cateList => {
     html = tpl(blogTemplate, cateList);
   // let str = postList.map(post => {
   //   return `<li>
-  //     <h3><a href="${post.linkName}">${post.title}</a></h3>
+  //     <h3><a href="${post.link_name}">${post.title}</a></h3>
   //   </li>`;
   // });
 
@@ -163,15 +168,15 @@ module.exports.buildArchive = postList => {
   let html = '',
     postArr = postList
       .map(item => {
-        let dateTimeArr = item.dateTime.split('-');
+        let date_timeArr = item.date_time.split('-');
 
         return {
-          dateTime: item.dateTime,
-          year: dateTimeArr[0],
-          month: dateTimeArr[1],
-          day: dateTimeArr[2],
+          date_time: item.date_time,
+          year: date_timeArr[0],
+          month: date_timeArr[1],
+          day: date_timeArr[2],
           title: item.title,
-          link: item.linkName
+          link: item.link_name
         };
       })
       .sort((a, b) => {

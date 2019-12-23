@@ -1,27 +1,19 @@
 // 整体背景色
-@c-bgc-body: #eee;
-
+@c-bgc-body: #f3f5f6;
 // 模块背景色1
-@c-bgc-mod1: #fff;
-
+@c-bgc-mod1: #123;
 // 模块背景色2
-@c-bgc-mod2: #4a4a4a;
-
+@c-bgc-mod2: #fff;
 // 正文颜色
-@c-body-main: #1a2a3a;
-
+@c-body-main: #123;
 // 标题颜色
 @c-body-title: #00a67c;
-
 @c-link: @c-body-main;
 @c-link-hover: darken(@c-body-main, 20%);
-
 // 正文辅助颜色
 @c-body-supplement: #999;
-
 // 装饰颜色1
 @c-decorate-1: #f78585;
-
 // 装饰颜色2
 @c-decorate-2: #d9534f;
 
@@ -30,13 +22,8 @@
     position: fixed;
 }
 @basic-width:1000px;
-
 @width-phone: 500px;
-
-
-
 @fs-base: 14px;
-
 @fs-font-family: "Hiragino Sans GB", "Microsoft Yahei", SimSun, Helvetica, Arial, Sans-serif;
 
 @fs-normal: 1rem;
@@ -45,7 +32,7 @@
 
 @fs-low1: 0.9rem;
 
-@fs-h3: 1.2rem;
+@fs-h3: 2rem;
 @fs-h2: 1.4rem;
 
 .u-more{
@@ -76,10 +63,10 @@
 .pl5{
   padding-left:2.5em;
 }
-
 .pl6{
   padding-left:3em;
 }
+
 .tc {
     text-align: center;
   }
@@ -94,6 +81,9 @@
   }
   .mb1 {
     margin-bottom: 1rem;
+  }
+  .mt1 {
+    margin-top: 1rem;
   }
   .mr1 {
     margin-right: 1rem;
@@ -119,30 +109,22 @@
     margin-right: 5px;
   }
   
-  .nowrap {
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    overflow: hidden;
-  }
-  
-  .m-body-title{color:@c-body-title}
-  .m-d1 {
-    color: @c-decorate-1;
-  }
-  
-  .m-d2 {
-    color: @c-decorate-2;
-  }
-  
-  .m-d3 {
-    color: @c-body-title;
-  }
-  .m-bgc-mod1{
-  
-    background-color:@c-bgc-mod1;
-  }
+.nowrap {text-overflow: ellipsis;white-space: nowrap;overflow: hidden;}
 
-
+.m-body-title{color:@c-body-title}
+.m-d1 {
+  color: @c-decorate-1;
+} 
+.m-d2 {
+  color: @c-decorate-2;
+}
+.m-d3 {
+  color: @c-body-title;
+}
+.m-bgc-mod1{background-color:@c-bgc-mod1;}
+.fw{font-weight: bold;}
+.lh2{line-height: 2;}
+.lh3{line-height: 3;}
   .m-layout-2c {
     display: flex;
     .m-layout-sidebar {

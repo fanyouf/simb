@@ -1,6 +1,6 @@
 .m-header {
   width: 100%;
-  background-color: #4a4a4a;
+  background-color: #fff;
   line-height: 4rem;
   display: block;
 }
@@ -15,7 +15,7 @@
   visibility: hidden;
 }
 .m-header .link {
-  color: #eee;
+  color: #f3f5f6;
   margin-right: 2rem;
 }
 .m-header .link:hover {
@@ -46,7 +46,7 @@
   margin: 0 1rem;
 }
 .m-header a {
-  color: #fff;
+  color: #123;
 }
 .m-header .u-a_cur {
   padding: 4px 8px;

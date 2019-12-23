@@ -1,0 +1,18 @@
+[{
+    "cou_id": "01",
+    "full_name":"01_javascript入门",
+    "name":"javascript入门",
+    "slug_name":"javascript_ru_men",
+    "article_list":[{
+        "id":"01",
+        "name":"搭建一个可以在浏览器中运行ts的环境",
+        "slug_name":"XXXX",
+        "mod_time":"20190413"
+    },
+    {
+        "id":"02",
+        "name":"搭建一个可以在浏览器中运行ts的环境",
+        "slug_name":"XXXX",
+        "mod_time":"20190413"
+    }]
+}]

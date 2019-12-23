@@ -1,0 +1,76 @@
+<!DOCTYPE html>  <html lang="zh">    <head>      <meta charset="UTF-8" />      <meta name="viewport" content="width=device-width, initial-scale=1.0" />      <meta http-equiv="X-UA-Compatible" content="ie=edge" />      <meta name="author" content="凡友福" />      <meta name="keywords" content="vue组件" />      <title>vue组件|XXX进阶</title>      <link rel="stylesheet" href="../static/css/lib/swal.css" />        <link rel="stylesheet" href="../static/css/public.css" />      <link rel="stylesheet" href="../static/css/article.css" />      <meta name="description" content="   组件之间相互转递数据
+
+先要确定一点，数据是在哪里产生的？这个问题很关键，它是会直接影响我们如何去设计组件的结构。
+
+我建议的答案是：数据是从上级组件中产生，然后流向下级。举个例子：
+" />  </head>    <body class="article">      <header class="m-header">          <div class="container">              <h1 class="m-logo" title="">                  <a href="../index.html">XXX进阶</a>              </h1>              <nav class="m-nav">                  <a href="../blog.html">博客</a>                  <a href="../about.html">关于</a>              </nav>          </div>      </header>      <section class="container">          <div class="main">              <div class="article-content">                  <h1 class="h1 tc mb1">                      vue组件                  </h1>                  <div class="meta tc">                      <span class="dateTime">发表于：2019-04-12</span>                  </div>                  <article class="m-markdown ">                      <h2>组件之间相互转递数据</h2>
+<p>先要确定一点，数据是在哪里产生的？这个问题很关键，它是会直接影响我们如何去设计组件的结构。</p>
+<p>我建议的答案是：数据是从上级组件中产生，然后流向下级。举个例子：</p>
+<pre><code>&lt;my-header&gt;
+    &lt;div&gt;
+        .....
+    &lt;/div&gt;
+    &lt;my-vator&gt;&lt;/my-vator&gt;
+&lt;/my-header&gt;
+</code></pre>
+<p>这里有一个组件的嵌套关系：my-header&gt; my-vator 。我们需要在 my-vator 上显示用户的头像，用户名等信息。 这是一个典型的应用场景，现在的问题是：数据（用户基本信息）是在哪个组件中产生的。</p>
+<ul>
+<li>A : 父级组件 my-header</li>
+<li>B : 子组件 my-vator</li>
+</ul>
+<p>如果选择 A, 意味着则 my-vator 组件就是一个纯用来展示信息的组件：给他什么信息，它就显示什么。它自己不能产生数据。</p>
+<p>如果选择 B, 意味着 my-vaotr 可以自己去发请求，去得到数据，显示数据，它完全是自给自足的。你把它放在任何的地方，它就可以自己独立的工作。</p>
+<p>看你决定怎么选择。 我选择 A： 一切数据都从父级组件中获取，子组件只是消费数据。</p>
+<table>
+<thead>
+<tr>
+<th>从</th>
+<th>哪里</th>
+<th>传递到</th>
+<th>是否改状态</th>
+<th>是否回传状态</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>父组件</td>
+<td>-&gt;子组件</td>
+<td>子组件内部不改状态</td>
+<td>否</td>
+</tr>
+<tr>
+<td>2</td>
+<td>父组件</td>
+<td>-&gt;子组件</td>
+<td>子组件内部改状态</td>
+<td>是</td>
+</tr>
+<tr>
+<td>3</td>
+<td>子组件</td>
+<td>-&gt;父组件</td>
+<td>子组件内部改状态</td>
+<td>是</td>
+</tr>
+</tbody>
+</table>
+<pre><code>&lt;div&gt;
+    &lt;son-component @myevent=&quot;hEvent&quot;&gt;&lt;/son-component&gt;
+&lt;/div&gt;
+
+
+Vue.component(&quot;son-component&quot;, {
+    tempalte:&quot;&lt;div&gt;&lt;input v-model='msg'&gt;&lt;button @click='hClick'&gt;ok&lt;/button&gt;&lt;/div&gt;&quot;,
+    data:function(){
+        return {msg:&quot;init value&quot;}
+    },
+    methods:{
+        hClick(){
+            this.$emit(&quot;myevent&quot;,this.msg)
+        }
+    }
+})
+</code></pre>
+<p>$emit</p>
+                  </article>                  <div class="article-bottom-tip">                      纸上得来终觉浅，绝知此事要躬行                  </div>              </div>              <aside class="aside">                  <h2 class="h2 tc mb1">系列文章</h2>                  <ol>                                    <li class="m-list-item ">                                            <a class="nowrap m-item-title cur" href="../04vue-ji-chu/01vue-zu-jian.html">                                                vue组件                      </a>                  </li>                                    <li class="m-list-item ">                                            <a class="m-item-title" href="../04vue-ji-chu/02vue-fu-wu-qi-duan-xuan-ran.html">                                                vue服务器端渲染                      </a>                  </li>                                </ol>              </aside>          </div>          <script src="../static/article.js"></script>          <!-- <script src="https://fanyofu.github.io/code/catalogue.js"></script>-->      </section>  </body>  </html>  

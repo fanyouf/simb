@@ -1,3 +1,9 @@
+.m-cards {
+  display: flex;
+}
+.m-cards .m-card {
+  margin: 1rem;
+}
 .m-card {
   background-color: #fff;
   padding: 1rem;

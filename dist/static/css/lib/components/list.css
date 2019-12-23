@@ -1,13 +1,13 @@
 .m-list {
-  padding: 1rem;
+  padding: 2rem;
   display: flex;
   flex-direction: column;
   background-color: #fff;
 }
 .m-list .m-list-title {
-  color: #00a67c;
+  color: inherit;
   font-size: 1.4rem;
-  border-bottom: 1px solid #00a67c;
+  border-bottom: 1px solid #eee;
   padding: 0 0 0.8rem;
   margin-bottom: 0.5rem;
 }
@@ -15,13 +15,13 @@
   color: #00a67c;
 }
 .m-list .m-list-item {
-  margin: 0.2rem 0;
+  margin: 2rem 0;
 }
 .m-list .m-list-item:last-child {
   margin-bottom: 0;
 }
 .m-list .m-item-title {
-  font-size: 1.2rem;
+  font-size: 2rem;
 }
 .m-list .m-item-content {
   line-height: 1.5rem;
@@ -54,7 +54,7 @@
   margin-right: 0.5rem;
 }
 .m-list.s-single-line .m-item-meta {
-  color: #4a4a4a;
+  color: #fff;
   font-size: 0.8rem;
   order: 3;
 }

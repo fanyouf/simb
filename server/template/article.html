@@ -1,56 +1,66 @@
 <!DOCTYPE html>
-<html lang="en">
-  <head>
+<html lang="zh">
+
+<head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <meta name="author" content="凡友福" />
-    <meta name="keywords" content="<%this.title%>" />
-    <title><%this.title%>|凡友福的个人博客</title>
-    <link rel="stylesheet" href="../static/css/index.css" />
-    <meta name="description" content="<%this.description%>" />
-  </head>
+    <meta name="author" content="<%this.config.author%>" />
+    <meta name="keywords" content="<%this.fileObj.name%>" />
+    <title><%this.fileObj.name%>|<%this.config.site_name%></title>
+    <link rel="stylesheet" href="../static/css/lib/swal.css" />
 
-  <body class="article">
+    <link rel="stylesheet" href="../static/css/public.css" />
+    <link rel="stylesheet" href="../static/css/article.css" />
+    <meta name="description" content="<%this.fileObj.substr%>" />
+</head>
+
+<body class="article">
     <header class="m-header">
-      <div class="container">
-        <h1 class="m-logo" title="">
-          <a href="../index.html">凡友福的博客</a>
-        </h1>
-        <nav class="m-nav">
-          <a href="../index.html">首页</a>
-          <a href="../archive.html">归档</a>
-          <a href="../category.html">分类</a>
-          <!-- <a href="../about.html">关于</a> -->
-        </nav>
-      </div>
+        <div class="container">
+            <h1 class="m-logo" title="">
+                <a href="../index.html"><%this.config.site_name%></a>
+            </h1>
+            <nav class="m-nav">
+                <a href="../blog.html">博客</a>
+                <a href="../about.html">关于</a>
+            </nav>
+        </div>
     </header>
-    <section class="wrapper">
-      <div class="main">
-        <h1 class="h1">
-          <%this.title%>
-        </h1>
-        <div class="meta">
-          <span class="category"
-            >分类于：<a href="../category.html#<%this.category%>"
-              ><%this.category%></a
-            ></span
-          >
-          <%if(this.tags){%>
-          <div class="tag">标签：<%this.tags%></div>
-          <%}%>
-          <span class="dateTime">发表于：<%this.dateTime%></span>
+    <section class="container">
+        <div class="main">
+            <div class="article-content">
+                <h1 class="h1 tc mb1">
+                    <%this.fileObj.name%>
+                </h1>
+                <div class="meta tc">
+                    <span class="dateTime">发表于：<%this.fileObj.date_time%></span>
+                </div>
+                <article class="m-markdown ">
+                    <%this.fileObj.content%>
+                </article>
+                <div class="article-bottom-tip">
+                    <%this.config.article_bottom_tip%>
+                </div>
+            </div>
+            <aside class="aside">
+                <h2 class="h2 tc mb1">系列文章</h2>
+                <ol>
+                <%for(var idx in this.article_list) {%>
+                <li class="m-list-item">
+                    <%if(this.fileObj.id == this.article_list[idx].id){%>
+                    <a class="nowrap m-item-title cur" href="../<%this.article_list[idx].link_name%>">
+                    <%}%><%else{%>
+                    <a class="nowrap m-item-title" href="../<%this.article_list[idx].link_name%>">
+                    <%}%><%this.article_list[idx].name%>
+                    </a>
+                </li>
+                <%}%>
+            </ol>
+            </aside>
         </div>
-        <article class="m-markdown">
-          <%this.content%>
-        </article>
-      </div>
-      <aside id="asideContianer">
-        <div class="m-list outline-content" id="aside">
-          <h3 class="m-list-title " id="asideTitle">目录</h3>
-        </div>
-      </aside>
+        <script src="../static/article.js"></script>
+        <!-- <script src="https://fanyofu.github.io/code/catalogue.js"></script>-->
     </section>
-    <script src="../static/article.js"></script>
-  </body>
+</body>
 </html>

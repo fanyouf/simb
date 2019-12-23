@@ -1,73 +1,54 @@
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>凡友福的博客</title>
-    <link rel="stylesheet" href="./css/index.css" />
-  </head>
-  <body class="index">
-    <header class="m-header">
-      <div class="container">
-        <h1 class="m-logo" title=""><a href="./index">凡友福的博客</a></h1>
-        <nav class="m-nav">
-          <a class="u-a_cur" href="./index.html">首页</a>
-          <a href="./archive.html">归档</a>
-          <a href="./category.html">分类</a>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <title><%this.config.site_name%> 主页</title>
+  <link rel="stylesheet" href="./static/css/lib/swal.css" />
+  <link rel="stylesheet" href="./static/css/public.css" />
+  <link rel="stylesheet" href="./static/css/index.css" />
 
-          <!-- <a href="./about.html">关于</a> -->
-        </nav>
+</head>
+
+<body class="index">
+  <header class="m-header">
+    <div class="container">
+      <h1 class="m-logo" title=""><a href="./index"><%this.config.site_name%></a></h1>
+      <nav class="m-nav">
+        <a href="./blog.html">博客</a>
+        <a class="u-a_cur" href="./about.html">关于</a>
+      </nav>
+    </div>
+  </header>
+
+  <div class="container">
+    <h2 class="title">系列 [<% this.course_list.length%>]</h2>
+    <div class="m-list m-list-with-img">
+      <% for(var idx in this.course_list) {%>
+      <div class="m-list-item ">
+        <a class="m-img-area" target="_blank" href="<%this.course_list[idx].index_path%>">
+          <img class="item-img" src="./static/img/cover/<%this.course_list[idx].cou_id%><%this.course_list[idx].slug_name%>.jpg">
+        </a>
+        <div class="m-item-content">
+          <h3 class="m-item-title"><a href="<%this.course_list[idx].index_path%>"><%this.course_list[idx].name%></a></h3>
+          <dl class="lh2 mt1">
+            <dd class="fw mb1">学习基础</dd>
+            <dt><%this.course_list[idx].basic%></dt>
+            <dd class="fw mb1">课程目标</dd>
+            <dt><%this.course_list[idx].target%></dt>
+          </dl>
+          <div class="lh3">
+            文章数量: <%this.course_list[idx].article_list.length%>
+          </div>
+        </div>
       </div>
-    </header>
+      <%}%>
+    </div>
+    <div class="index-bottom-tip">
+      <%this.config.index_bottom_tip%>
+  </div>
+  </div>
 
-    <section class="container">
-      <ul class="m-list fl">
-        <% for(var index in this.postList) {%>
-        <li class="m-list-item">
-          <h2 class="m-item-title">
-            <a href="./<%this.postList[index].linkName%>"
-              ><%this.postList[index].title%></a
-            >
-          </h2>
-          <div class="m-item-meta">
-            <time
-              class="u-datetime"
-              datetime="<%this.postList[index].dateTime%>"
-              >发布于：<%this.postList[index].dateTime%></time
-            >
-            <label class="u-cate"
-              >分类：<a href="./category.html#<%this.postList[index].category%>"
-                ><span class="u-icon_category"
-                  ><%this.postList[index].category%></span
-                ></a
-              ></label
-            >
-            <!-- <label>
-              标签： <% for(var idx in this.postList[index].tags) {%>
-              <span class="u-tag"><%this.postList[index].tags[idx] %></span>
-              <%}%>
-            </label> -->
-          </div>
-          <div class="m-item-content">
-            <%this.postList[index].substr%>
-          </div>
-          <div>
-            <a class="u-more" href="./<%this.postList[index].linkName%>"
-              >阅读全文</a
-            >
-          </div>
-        </li>
-        <%}%>
-      </ul>
-      <!-- <aside>
-        <dl class="m-list s-inline">
-          <dt class="m-list-title">分类</dt>
-          <% for(var index in this.cateList) {%>
-          <dd class="m-list-item"><a href=""><%this.cateList[index]%></a></dd>
-          <%}%>
-        </dl>
-      </aside> -->
-    </section>
   </body>
 </html>
